@@ -20,8 +20,8 @@
         <button> <img src="./background_login.jpg"></button>
         
         <div class="buttons">
-            <button id="homeBtn">Всички</button>
-            <button id="addBtn">Добави</button>
+            <button id="homeBtn" onclick="register()">Всички</button>
+            <button id="addBtn" onclick="register()">Добави</button>
             <button id="favBtn">Любими</button>
         </div>
 
@@ -37,7 +37,7 @@
         <ul>
 
             <a><span>A</span></a>
-            <li id="asen"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Асен </button></li>
+            <li id="asen"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button></li>
             
                 <div class="lineBtwn"></div>
 
@@ -122,15 +122,15 @@
     <div class="register">
 
         <label>Име</label>
-        <input placeholder="Име" >
+        <input type="text" >
         <label>Фамилия</label>
-        <input placeholder="Фамилия" >
+        <input type="text" >
         <label>Адрес</label>
-        <input placeholder="Адрес" >
+        <input type="text" >
         <label>Имейл</label>
-        <input placeholder="Имейл" >
+        <input type="text" >
         <label>Телефонен номер</label>
-        <input placeholder="Телефонен номер" >
+        <input type="text" >
 
         <button>Добави</button>
 
