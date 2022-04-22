@@ -6,6 +6,7 @@ const port = 3000;
 
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static('C:/Users/deivi/Desktop/GitHub/webtech2022-PhoneBook/phone book - all/public'));
+app.use(express.json());
 
 
 let contacts = [];
@@ -17,9 +18,15 @@ app.get('/', (req, res) => {
     return res.sendFile(path.join('C:/Users/deivi/Desktop/GitHub/webtech2022-PhoneBook/phone book - all/public/index.html'))
 });
 
+app.get('/contacts', (req, res) => {
+    
+    // res.sendFile(path.join(__dirname + '/index.html'))
+    return res.json(contacts);
+});
+
 // виждане на информация за потребител
-app.get('/contacts/:id', (req, res) => {
-    let id = req.params.id;
+app.get('/contacts/:phone', (req, res) => {
+    let id = req.params.phone;
 	
 	if(!id){
 		return res.status(400).json({error: "Invalid parameter" });
@@ -33,12 +40,15 @@ app.get('/contacts/:id', (req, res) => {
 });
 
 // добавяне на нов потребител
-app.post('/newContact', (req, res) => {
+app.post('/contacts', (req, res) => {
+	
     const firstname = req.body.firstname;
 	const lastname = req.body.lastname;
 	const address = req.body.address;
 	const email = req.body.email;
 	const phone = req.body.phone;
+
+	console.log(firstname);
 	
 	if(!firstname || !lastname || !address || !email || !phone) {
 		return res.status(400).json({error: "Invalid data" });
@@ -53,10 +63,13 @@ app.post('/newContact', (req, res) => {
 	}
 	
 	contacts.push(newContact);
+	// console.log(contacts)
+
+	// // функция която подава рези данни на html страницата
+
+	res.send(contacts);
 	
-	// функция която подава рези данни на html страницата
-	
-	return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
+	//return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
 });
 
 // добавяне на нов телефонен номер към конкретен потребител
