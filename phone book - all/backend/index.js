@@ -5,7 +5,7 @@ const app = express(); // create application from express
 const port = 3000;
 
 // app.use(express.static(__dirname + '/public'));
-app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book/public'));
+app.use(express.static('C:/Users/deivi/Desktop/GitHub/webtech2022-PhoneBook/phone book - all/public'));
 
 
 let contacts = [];
@@ -14,7 +14,7 @@ let contacts = [];
 app.get('/', (req, res) => {
     
     // res.sendFile(path.join(__dirname + '/index.html'))
-    return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
+    return res.sendFile(path.join('C:/Users/deivi/Desktop/GitHub/webtech2022-PhoneBook/phone book - all/public/index.html'))
 });
 
 // виждане на информация за потребител

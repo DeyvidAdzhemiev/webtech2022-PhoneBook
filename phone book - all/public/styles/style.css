@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
   }
@@ -10,47 +11,89 @@
   
   .container {
       overflow: hidden;
-      position: relative;
-      display: flex;
-      text-align: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      height: 1080px;
-      width: 700px;
-  }
-  
-  .nav {
-      padding: 15px;
-      text-align: center;
       position: absolute;
-      top: 10%;
-  }
-  
-  .nav input {
-      border: 0px;
-      border-radius: 20px;
-      width: 350px;
-      height: 50px;
+      display: flex;
+      justify-content: center;
       text-align: center;
-      margin: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
       
   }
   
+  .nav {
+      background-color: rgb(57, 166, 240);
+      position:relative;
+      width: 80%;
+      height: 65px;
+      display: flex;
+      border-radius: 20px;
+      margin: 80px;
+  } 
+
   .nav button {
-      background-color: rgba(255, 253, 253, 0);
-      border: 0px;
-      margin: 10% 10% 5% 10%;
+      background-color: rgba(255,255,255,0);
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .nav button img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: none;
+      margin: 5px 15px;
+  }
+
+  .buttons{
+      display: flex;
+      justify-content: center;
+      margin: 0% 0% 0% 20%;
+      
   }
   
-  .search button {
-      position: absolute;
-      top: 77px;
-      left: 73%;
+  .buttons button{
+      font-size: large;
+      font-weight: bold;
+      margin: 0px 30px;
+      display: flex;
+      
+      
   }
-  
-  .btnNav {
-      display: block;
+
+  .buttons button img {
+      background-color: rgba(255,255,255,0);
+      margin: 5px;
   }
+
+  .buttons button:hover{
+      cursor: pointer;
+      border: 1px solid black;
+
+  }
+
+  .search{
+    position: absolute;
+    right: 5%;
+    top: 20%;
+  }
+
+  .search input{
+      height: 35px;
+      border-radius: 20px;
+      width: 270px;
+      text-align: end;
+      padding: 0px 10px;
+      margin: 0px 10px;
+  }
+
+  .menu ul li button:hover{
+      cursor: pointer;
+      font-weight: bold;
+  }
+
   
   span {
       font-weight: bold;
@@ -58,17 +101,19 @@
   }
   
   .menu {
-      float: left;
       background-color: rgba(255, 255, 255, 0.6);
-      margin: 10px;
-      width: 350px;
       position: relative;
-      top: 40%;
-      height: fit-content;
+      margin: 10px;
+      float: left;
+      width: 60%;
+      height: 300px;
+      overflow: auto;
   }
   
   .menu ul {
       list-style: none;
+      display: block;
+      margin: 10px 30px;
   }
   
   .menu ul li{
@@ -80,6 +125,11 @@
   .menu ul li button {
       font-size: medium;
       font-style: italic;
+      
+  }
+
+  .menu ul li button img {
+      width: 70%;
   }
   
   .menu ul a {
@@ -98,21 +148,22 @@
       position: relative;
       display: inline-block;
       margin: 5px;
-      width: 80%;
+      width: 100%;
       border-bottom: 1px solid grey;
   }
   
   .main {
       background-color: rgb(147, 99, 242);
-      border: 3px solid white;
-      position: absolute;
+      position: relative;
+      left: 0%;
       text-align: left;
-      top: 40%;
       float: left;
-      padding: 20px;
-      width: 100%;
+      border: 3px solid white;
       display: none;
-      
+      padding: 20px;
+      width: 60%;
+      height: fit-content;
+
   }
   
   .personalInfo {
@@ -135,57 +186,37 @@
   
   .register {
       position: relative;
-      top: 40%;
+      top: 15%;
+      left: 29%;
       background-color: rgba(255, 255, 255, 0.6);
-      width: 350px;
+      width: 600px;
       height: fit-content;
       display: none;
-      grid-auto-columns: 1fr 2fr;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      align-items: center;
   }
   
-  .register form label {
+  .register label {
       font-style: italic;
       font-size: medium;
       margin: 10px;
   }
   
-  .register form input {
+  .register input {
       width: 200px;
       height: 25px;
       padding: 5px;
       margin: 0px 50px;
   }
   
-  .register form button {
+  .register button {
       background: none;
       border: none;
       margin: 20px;
       padding: 5px;
   }
-  
-  /* .anPer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100px;
-      position: relative;
-      flex-wrap: wrap;
-      margin: 20px;
-      left: 30%;
-  
-  }
-  
-  .anPer input {
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none;
-      border-radius: 25px;
-      height: 25px;
-      margin: 5px;
-  }
-  
-  .anPer button {
-      margin: 10px;
-  } */
   
   .menuIcon {
       width: 90%;
@@ -197,111 +228,144 @@
       display: none;
   }
   
-  @media only screen and (max-width: 450px) {
+  @media only screen and (max-width: 850px) {
+
+
+
       
-      .container {
-          width: 100%;
-          display: flex;
-          position: absolute;
-          top: 10%;
-      }
-  
-  
-      .nav {
-          position: absolute;
-          width: 100%;
-          max-width: 340px;
-          top: 5%;
-      }
-  
-      .nav input {
-          border: 0px;
-          border-radius: 20px;
-          width: 250px;
-          height: 30px;
-          
-      }
-  
-      .menuIcon {
-          display: block;
-          position: absolute;
-          top: 35%;
-      }
-  
-      .search button {
-          position: absolute;
-          top: 73px;
-          left: 65%;
-      }
-  
-      .main {
-          width: 100%;
-          max-width: 400px;
-      }
-  
-      .main ul {
-          width: 100%;
-          max-width: 330px;
-          left: 0px;
-      }
-  
-  
-      .personalInfo {
-          position: absolute;
-          left: 250px;
-          top: 15%;
-      }
-  
+    .nav  {
+        position: relative;
+        height: 130px;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 40px 0px 10px 10px;
+    }
+
+    .nav button {
+        margin: 0px 20px;
+    }
+
+    .nav button img {
+        display: none;
+    }
+
+    .search {
+        position: absolute;
+        left: 0px;
+        top: 10px;
+    }
+
+    .buttons {
+        position: relative;
+        left: 0%;
+        top: 20%;
+        margin: 0px 0px;
+    }
+
+    #homeBtn img {
+        display: block;
+    }
+
+    #addBtn img {
+        display: block;
+    }
+
+    #favBtn img {
+        display: block;
+    }
+
+    .menu {
+        left: 0%;
+        width: 95%;
+    }
+
+    .menu ul {
+        margin: 10px 0px;
+    }
+    
+    .register {
+        left: 0%;
+        width: 90%;
+    }
+
+    .main {
+        left: 0%;
+        width: 90%;
+    }
+
+    .personalInfo {
+        left: 70%;
+    }
+
+    .personalInfo img {
+        width: 80px;
+        height: 80px;
+    }
+
+
+
   }
   
   
-  @media only screen and (max-width: 850px)  and (min-width: 451px) {
+  @media only screen and (max-width: 1250px)  and (min-width: 851px) {
       
-      .nav {
-          position: absolute;
-          width: 100%;
-          max-width: 340px;
-          top: 5%;
-      }
-  
-      .nav input {
-          border: 0px;
-          border-radius: 20px;
-          width: 300px;
-          height: 40px;
-          
-      }
-  
-      .menuIcon {
-          display: block;
-          position: absolute;
-          top: 35%;
-      }
-  
-      .search button {
-          position: absolute;
-          top: 77px;
-          left: 73%;
-      }
-      
-      .container {
-          width: 100%;
-          position: relative;
-          
-      }
-  
-      .main {
-          width: 100%;
-          max-width: 800px;
-      }
-  
-      .main ul {
-          width: 100%;
-          max-width: 330px;
-          left: 0px;
-          position: absolute;
-          left: 10%;
-      }
+    .nav  {
+        position: relative;
+        height: 80px;
+        width: 95%;
+        margin: 40px 0px 10px 10px;
+    }
+
+    .nav button {
+        margin: 0px 20px;
+    }
+
+
+    .search {
+        position: absolute;
+        top: 25%;
+    }
+
+    .buttons {
+        position: absolute;
+        left: 15%;
+        top: 10%;
+        margin: 0px 0px;
+    }
+
+    #homeBtn img {
+        display: block;
+    }
+
+    #addBtn img {
+        display: block;
+    }
+
+    #favBtn img {
+        display: block;
+    }
+
+    .menu {
+        left: 0%;
+        width: 95%;
+    }
+
+    .menu ul {
+        margin: 10px 0px;
+    }
+    
+    .register {
+        left: 3%;
+        width: 95%;
+    }
+
+    .main {
+        left: 0%;
+        width: 70%;
+    }
   
   
   }
@@ -330,4 +394,9 @@
       width: 25px; 
       height: 25px; 
       border-radius: 50px;
+  }
+  
+
+  #gifHomeBtn {
+    
   }

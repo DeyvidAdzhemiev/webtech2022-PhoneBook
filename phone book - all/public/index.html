@@ -5,80 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone book</title>
-    <link rel="stylesheet" href="styles/style.css" >
+    <link rel="stylesheet" href="./styles/style.css" > 
+
 </head>
 <body>
 
-    <div class="ind"></div>  <!-- background -->
+    <div class="ind"></div>
 
 <div class="container">
 
-    <div class="nav"> <!-- navbar -->
+    <!-- <div class="title">
         <h1>Phone book</h1>
-        <div class="search">
-            <input placeholder="номер" >
-            <button > <img src="./images/search.png" > </button>
+    </div> -->
+
+    <div class="nav">
+        <button> <img src="./me.png"></button>
+        
+        <div class="buttons">
+            <button id="homeBtn" onclick="homeBtn()"><img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./home.png" > Всички</button>
+            <button id="addBtn" onclick="register()"> <img style="width: 30px; height: 30px;" src="./add.png" > Добави</button>
+            <button id="favBtn"><img style="width: 30px; height: 30px;" src="./favorites.png" > Любими</button>
         </div>
-    
-        <div class="btnNav">
-            <button id="btnAdd" onclick="register()" > <img src="./images/plus.png" > </button>
-            <button id="btnRem"> <img src="./images/crayon.png"> </button>
+
+        <div class="search">
+            <input placeholder="Търси">
+            <img style="position:absolute; top:20%;" src="./search.png" >
         </div>
     </div>
     
     <div class="menuIcon"></div>
 
 
-     <div class="menu"> <!-- list with contacts-->
+     <div class="menu">
         <ul>
 
             <a><span>A</span></a>
-            <li id="asen"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Асен </button></li>
+            <li id="asen"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="aleksandur"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Александър </button></li>
+            <li id="aleksandur"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Александър Иванов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
                 
                 <div class="lineBtwn"></div>
 
-            <li id="anton"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Антон </button></li>
+            <li id="anton"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Антон Тодоров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
             <a><span>И</span></a>
-            <li id="ivan"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Иван </button></li>
+            <li id="ivan"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Иван Сотиров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
             <a><span>Д</span></a>
             
-            <li id="dancho"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо </button> </li>
+            <li id="dancho"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="dancho1"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо1 </button> </li>
+            <li id="dancho1"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо1 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="dancho2"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо2 </button> </li>
+            <li id="dancho2"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо2 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
                 
                 <div class="lineBtwn"></div>
             
                 <a><span>К</span></a>
             
-            <li id="kolu"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Колю </button> </li>
+            <li id="kolu"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Колю </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
         </ul>
     </div>
 
 
-    <div class="main"> <!-- info for contact -->
+    <div class="main">
 
         <div class="backBtn">
-            <button onclick="showInfo()"><img src="./images/back.png"></button>
+            <button onclick="showInfo()"><img src="./back.png"></button>
         </div>
 
         <div class="personalInfo">
-            <img src="./images/background_login.jpg" >
+            <img src="background_login.jpg" >
         </div>
         <p><span>Първо име: </span> Иван </p>
         <p><span>Фамилия: </span> Иванов</p>
@@ -86,8 +93,8 @@
         <p><span>Имейл: </span> ivan@amail.com</p>
 
 
-        <button onclick="AddNewFriend()" > <img id="imagebtn" src="./images/add.png" > </button>
-        <button><img id="imagebtn" src="./images/delBtn.png" ></button>
+        <button onclick="AddNewFriend()" > <img id="imagebtn" src="add.png" > </button>
+        <button><img id="imagebtn" src="./delBtn.png" ></button>
 
         <table id="PhoneNumbers">
             <tr>
@@ -115,26 +122,24 @@
     </div>
 
 
-    <div class="register"> <!-- register form -->
+    <div class="register">
 
-        <form action="http://localhost:3000/newContact" method="post">
-            <label>Име</label>
-            <input type="text" placeholder="Име" name="firstname" >
-            <label>Фамилия</label>
-            <input type="text" placeholder="Фамилия" name="lastname" >
-            <label>Адрес</label>
-            <input type="text" placeholder="Адрес" name="address" >
-            <label>Имейл</label>
-            <input type="text" placeholder="Имейл" name="email" >
-            <label>Телефонен номер</label>
-            <input type="text" placeholder="Телефонен номер" name="phone">
+        <label>Име</label>
+        <input type="text" >
+        <label>Фамилия</label>
+        <input type="text" >
+        <label>Адрес</label>
+        <input type="text" >
+        <label>Имейл</label>
+        <input type="text" >
+        <label>Телефонен номер</label>
+        <input type="text" >
 
-            <input type="submit" value="Добави">
-        </form>
+        <button>Добави</button>
 
     </div>
 
 </div>
-    <script src="functions/index.js"></script>
+    <script src="./functions/index.js"></script>
 </body>
 </html>
