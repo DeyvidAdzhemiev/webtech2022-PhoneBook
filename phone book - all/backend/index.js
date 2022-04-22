@@ -36,7 +36,7 @@ app.get('/contacts/:phone', (req, res) => {
 	
 	// функция която подава рези данни на html страницата
 
-	return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
+	//return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/pub
 });
 
 // добавяне на нов потребител
