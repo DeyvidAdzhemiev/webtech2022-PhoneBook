@@ -19,7 +19,7 @@
     </div> -->
 
     <div class="nav">
-        <button> <img src="./me.png"></button>
+        <button> <img src="./images/me.png"></button>
         
         <div class="buttons">
             <button id="homeBtn" onclick="homeBtn()"><img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./home.png" > Всички</button>
@@ -125,17 +125,17 @@
     <div class="register">
 
         <label>Име</label>
-        <input type="text" >
+        <input type="text" id="firstname" >
         <label>Фамилия</label>
-        <input type="text" >
+        <input type="text" id="lastname">
         <label>Адрес</label>
-        <input type="text" >
+        <input type="text" id="address">
         <label>Имейл</label>
-        <input type="text" >
+        <input type="text" id="email">
         <label>Телефонен номер</label>
-        <input type="text" >
+        <input type="text" id="phone">
 
-        <button>Добави</button>
+        <button onclick="submitUser()">Добави</button>
 
     </div>
 
