@@ -60,6 +60,59 @@ function homeBtn() {
 
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    getItems();
+});
+
+
+
+function getItems() {
+    fetch('http://localhost:3000/contacts')
+        .then((response) => response.json())
+        .then((listItems) => {
+            if (listItems && listItems.length !== 0) {
+                listItems.map(item => {
+                    const li = document.createElement('li');
+                    const button = document.createElement('button');
+
+                    button.textContent = item.firstname + " " + item.lastname;
+                    button.setAttribute('onclick', 'showInfo()');
+
+                    li.appendChild(button);
+                
+                    document.querySelector('ul').appendChild(li);
+                })
+            }
+        })
+}
+
+
+function getInfoContact(phone) {
+    fetch('http://localhost:3000/contacts/' + phone)
+        .then((response) => response.json())
+        .then((listItems) => {
+            if (listItems && listItems.length !== 0) {
+                listItems.map(item => {
+
+                    // <p><span>Първо име: </span> Иван </p>
+                    // <p><span>Фамилия: </span> Иванов</p>
+                    // <p><span>Адрес: </span> бул. Джеймс Баучер</p>
+                    // <p><span>Имейл: </span> ivan@amail.com</p>
+
+                    const li = document.createElement('li');
+                    const button = document.createElement('button');
+
+                    button.textContent = item.firstname + " " + item.lastname;
+                    button.setAttribute('onclick', 'showInfo()');
+
+                    li.appendChild(button);
+                
+                    document.querySelector('ul').appendChild(li);
+                })
+            }
+        })
+}
+
 
 function submitUser(){
 
@@ -68,20 +121,19 @@ function submitUser(){
 
 
         const firstnameUser = document.getElementById("firstname").value;
-        const lastnameUser = document.getElementById("firstname").value;
-        const addressUser = document.getElementById("firstname").value;
-        const emailUser = document.getElementById("firstname").value;
-        const phoneUser = document.getElementById("firstname").value;
-        const firstnameUser = document.getElementById("firstname").value;
+        const lastnameUser = document.getElementById("lastname").value;
+        const addressUser = document.getElementById("address").value;
+        const emailUser = document.getElementById("email").value;
+        const phoneUser = document.getElementById("phone").value;
 
 
-    fetch('http://localhost:3000/newContact', {
+    fetch('http://localhost:3000/contacts', {
         method: 'POST',
-        body: JSON.stringify({ firstname: firstname,
-                                lastname: lastname,
-                                address: address,
-                                email: email,
-                                phone: phone }),
+        body: JSON.stringify({ firstname: firstnameUser,
+                                lastname: lastnameUser,
+                                address: addressUser,
+                                email: emailUser,
+                                phone: phoneUser }),
         headers: new Headers({
             'Content-Type': 'application/json'
         })

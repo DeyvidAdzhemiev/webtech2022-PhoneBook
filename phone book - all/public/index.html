@@ -22,14 +22,21 @@
         <button> <img src="./images/me.png"></button>
         
         <div class="buttons">
-            <button id="homeBtn" onclick="homeBtn()"><img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./home.png" > Всички</button>
-            <button id="addBtn" onclick="register()"> <img style="width: 30px; height: 30px;" src="./add.png" > Добави</button>
-            <button id="favBtn"><img style="width: 30px; height: 30px;" src="./favorites.png" > Любими</button>
+            <button id="homeBtn" onclick="homeBtn()">
+                <img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./images/home.png" > Всички
+            </button>
+            <button id="addBtn" onclick="register()">
+                <a href="http://localhost:3000/newContact"></a>
+                <img style="width: 30px; height: 30px;" src="./images/add.png" > Добави
+            </button>
+            <button id="favBtn">
+                <img style="width: 30px; height: 30px;" src="./images/favorites.png" > Любими
+            </button>
         </div>
 
         <div class="search">
             <input placeholder="Търси">
-            <img style="position:absolute; top:20%;" src="./search.png" >
+            <img style="position:absolute; top:20%;" src="./images/search.png" >
         </div>
     </div>
     
@@ -40,40 +47,41 @@
         <ul>
 
             <a><span>A</span></a>
-            <li id="asen"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="asen"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="aleksandur"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Александър Иванов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="aleksandur"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Александър Иванов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
                 
                 <div class="lineBtwn"></div>
 
-            <li id="anton"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Антон Тодоров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="anton"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Антон Тодоров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
             <a><span>И</span></a>
-            <li id="ivan"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Иван Сотиров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="ivan"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Иван Сотиров </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
             <a><span>Д</span></a>
             
-            <li id="dancho"> <img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="dancho"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="dancho1"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо1 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="dancho1"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо1 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
             
                 <div class="lineBtwn"></div>
 
-            <li id="dancho2"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Данчо2 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="dancho2"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо2 Павлов </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
                 
                 <div class="lineBtwn"></div>
             
                 <a><span>К</span></a>
             
-            <li id="kolu"><img id="image" src="./background_login.jpg" > <button onclick="showInfo()" > Колю </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            <li id="kolu"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Колю </button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+         
         </ul>
     </div>
 
@@ -81,11 +89,11 @@
     <div class="main">
 
         <div class="backBtn">
-            <button onclick="showInfo()"><img src="./back.png"></button>
+            <button onclick="showInfo()"><img src="./images/back.png"></button>
         </div>
 
         <div class="personalInfo">
-            <img src="background_login.jpg" >
+            <img src="./images/background_login.jpg" >
         </div>
         <p><span>Първо име: </span> Иван </p>
         <p><span>Фамилия: </span> Иванов</p>
@@ -93,8 +101,8 @@
         <p><span>Имейл: </span> ivan@amail.com</p>
 
 
-        <button onclick="AddNewFriend()" > <img id="imagebtn" src="add.png" > </button>
-        <button><img id="imagebtn" src="./delBtn.png" ></button>
+        <button onclick="AddNewFriend()" > <img id="imagebtn" src="./images/add.png" > </button>
+        <button><img id="imagebtn" src="./images/delBtn.png" ></button>
 
         <table id="PhoneNumbers">
             <tr>

@@ -73,6 +73,10 @@
       border: 1px solid black;
 
   }
+  .register button:hover{
+      cursor: pointer;
+      border: 1px solid black;
+  }
 
   .search{
     position: absolute;

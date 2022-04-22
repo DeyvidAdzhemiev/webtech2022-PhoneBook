@@ -26,17 +26,18 @@ app.get('/contacts', (req, res) => {
 
 // виждане на информация за потребител
 app.get('/contacts/:phone', (req, res) => {
-    let id = req.params.phone;
+    let phone = req.params.phone;
 	
-	if(!id){
+	if(!phone){
 		return res.status(400).json({error: "Invalid parameter" });
 	}
 	
-	const contact = contacts.find(contact => contact.id === id);
+	const contact = contacts.find(contact => contact.phone === phone);
 	
 	// функция която подава рези данни на html страницата
+	console.log(contact);
 
-	res.send(contacts)
+	res.json(contact)
 });
 
 // добавяне на нов потребител
