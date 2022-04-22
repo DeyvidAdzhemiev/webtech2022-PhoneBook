@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone book</title>
+    <link rel="stylesheet" href="styles/style.css" >
+</head>
+<body>
+
+    <div class="ind"></div>  <!-- background -->
+
+<div class="container">
+
+    <div class="nav"> <!-- navbar -->
+        <h1>Phone book</h1>
+        <div class="search">
+            <input placeholder="номер" >
+            <button > <img src="./images/search.png" > </button>
+        </div>
+    
+        <div class="btnNav">
+            <button id="btnAdd" onclick="register()" > <img src="./images/plus.png" > </button>
+            <button id="btnRem"> <img src="./images/crayon.png"> </button>
+        </div>
+    </div>
+    
+    <div class="menuIcon"></div>
+
+
+     <div class="menu"> <!-- list with contacts-->
+        <ul>
+
+            <a><span>A</span></a>
+            <li id="asen"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Асен </button></li>
+            
+                <div class="lineBtwn"></div>
+
+            <li id="aleksandur"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Александър </button></li>
+                
+                <div class="lineBtwn"></div>
+
+            <li id="anton"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Антон </button></li>
+            
+                <div class="lineBtwn"></div>
+
+            <a><span>И</span></a>
+            <li id="ivan"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Иван </button></li>
+            
+                <div class="lineBtwn"></div>
+
+            <a><span>Д</span></a>
+            
+            <li id="dancho"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо </button> </li>
+            
+                <div class="lineBtwn"></div>
+
+            <li id="dancho1"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо1 </button> </li>
+            
+                <div class="lineBtwn"></div>
+
+            <li id="dancho2"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Данчо2 </button> </li>
+                
+                <div class="lineBtwn"></div>
+            
+                <a><span>К</span></a>
+            
+            <li id="kolu"><img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Колю </button> </li>
+        </ul>
+    </div>
+
+
+    <div class="main"> <!-- info for contact -->
+
+        <div class="backBtn">
+            <button onclick="showInfo()"><img src="./images/back.png"></button>
+        </div>
+
+        <div class="personalInfo">
+            <img src="./images/background_login.jpg" >
+        </div>
+        <p><span>Първо име: </span> Иван </p>
+        <p><span>Фамилия: </span> Иванов</p>
+        <p><span>Адрес: </span> бул. Джеймс Баучер</p>
+        <p><span>Имейл: </span> ivan@amail.com</p>
+
+
+        <button onclick="AddNewFriend()" > <img id="imagebtn" src="./images/add.png" > </button>
+        <button><img id="imagebtn" src="./images/delBtn.png" ></button>
+
+        <table id="PhoneNumbers">
+            <tr>
+                <th>Номер</th>
+                <th>Дом./Моб.</th>
+                <th>Телефонен номер</th>
+            </tr>
+            <tr>
+                <td>1. </td>
+                <td>Мобилен</td>
+                <td>0989878997</td>
+            </tr>
+            <tr>
+                <td>2. </td>
+                <td>Мобилен</td>
+                <td>0989878457</td>
+            </tr>
+            <tr>
+                <td>3. </td>
+                <td>Домашен</td>
+                <td>0284438457</td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div class="register"> <!-- register form -->
+
+        <form action="http://localhost:3000/newContact" method="post">
+            <label>Име</label>
+            <input type="text" placeholder="Име" name="firstname" >
+            <label>Фамилия</label>
+            <input type="text" placeholder="Фамилия" name="lastname" >
+            <label>Адрес</label>
+            <input type="text" placeholder="Адрес" name="address" >
+            <label>Имейл</label>
+            <input type="text" placeholder="Имейл" name="email" >
+            <label>Телефонен номер</label>
+            <input type="text" placeholder="Телефонен номер" name="phone">
+
+            <input type="submit" value="Добави">
+        </form>
+
+    </div>
+
+</div>
+    <script src="functions/index.js"></script>
+</body>
+</html>
