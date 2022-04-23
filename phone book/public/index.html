@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone book</title>
+    <link rel="stylesheet" href="./styles/style.css" > 
+
+</head>
+<body>
+
+    <div class="ind"></div>
+
+<div class="container">
+
+    <!-- <div class="title">
+        <h1>Phone book</h1>
+    </div> -->
+
+    <div class="nav">
+        <button> <img src="./images/me.png"></button>
+        
+        <div class="buttons">
+            <button id="homeBtn" onclick="homeBtn()">
+                <img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./images/home.png" > Всички
+            </button>
+            <button id="addBtn" onclick="register()">
+                <a href="http://localhost:3000/newContact"></a>
+                <img style="width: 30px; height: 30px;" src="./images/add.png" > Добави
+            </button>
+            <button id="favBtn">
+                <img style="width: 30px; height: 30px;" src="./images/favorites.png" > Любими
+            </button>
+        </div>
+
+        <div class="search">
+            <input id="searchItem" placeholder="Търси">
+            <button onclick="searchNumber()" > <img style="position:absolute; top:0%; left: 95%; width: 30px; height: 30px;" src="./images/search.png" > </button>
+        </div>
+    </div>
+    
+    <div class="menuIcon"></div>
+
+
+     <div class="menu">
+        <ul>
+
+            <li id="asen"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button> <button> <img style="width: 30px; height: 30px;" src="./favorite.png"> </button> </li>
+            
+                <div class="lineBtwn"></div>
+
+         
+        </ul>
+    </div>
+
+
+    <div class="main">
+
+        <div class="backBtn">
+            <button onclick="hideInfo()"><img src="./images/back.png"></button>
+        </div>
+
+        <div class="personalInfo">
+            <img src="./images/background_login.jpg" >
+        </div>
+
+        <p id="frstName"> Иван </p>
+        <p id="lstName"> Иванов </p>
+        <p id="addrst"> бул. Джеймс Баучер </p>
+        <p id="eml"> dancho@abv.bg </p>
+
+
+        <button onclick="AddNewFriend()" > <img id="imagebtn" src="./images/add.png" > </button>
+        <button><img id="imagebtn" src="./images/delBtn.png" ></button>
+
+        <table id="PhoneNumbers">
+            <tr>
+                <th>Номер</th>
+                <th>Дом./Моб.</th>
+                <th>Телефонен номер</th>
+            </tr>
+            <tr>
+                <td>1. </td>
+                <td>Мобилен</td>
+                <td id="currentPhone">0989878997</td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div class="register">
+
+        <label>Име</label>
+        <input type="text" id="firstname" >
+        <label>Фамилия</label>
+        <input type="text" id="lastname">
+        <label>Адрес</label>
+        <input type="text" id="address">
+        <label>Имейл</label>
+        <input type="text" id="email">
+        <label>Телефонен номер</label>
+        <input type="text" id="phone">
+
+        <button onclick="submitUser()">Добави</button>
+
+    </div>
+
+</div>
+    <script src="./functions/index.js"></script>
+</body>
+</html>
