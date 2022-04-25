@@ -38,7 +38,7 @@ app.get('/contacts/:phone', (req, res) => {
 	const contact = contacts.find(contact => contact.phone === phone);
 	
 	// функция която подава рези данни на html страницата
-	console.log(contact.email);
+	// console.log(contact.email);
 
 	res.json(contact)
 });
@@ -67,53 +67,46 @@ app.post('/contacts', (req, res) => {
 	}
 	
 	contacts.push(newContact);
-	// console.log(contacts)
-
-	// // функция която подава рези данни на html страницата
 
 	writeData();
+
 	res.send(contacts);
 	
 	//return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
 });
 
 // добавяне на нов телефонен номер към конкретен потребител
-app.post('/contacts/:id/:phone', (req, res) => {
+app.post('/contacts/:phone/:AnotherPhone', (req, res) => {
 
-	let id = req.params.id;
-	let newPhone = req.params.phone;
+	let phone = req.params.phone;
+	let newPhone = req.params.AnotherPhone;
 	
-	if(!id || !newPhone){
+	if(!phone || !newPhone){
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
 	let user = users.find(user => user.id === id);
-	
+
+		
 
 });
 
 // изтриване на потребител
-app.delete('/contacts/:id', (req, res) => {
+app.delete('/contacts/:phone', (req, res) => {
 	
-	const id = req.params.id;
+	const phone = req.params.phone;
 	
-	if(!id){
+	if(!phone){
 		return res.status(400).json({error: "Invalid parameter"});
 	}
 	
-	contacts = contacts.filer(contact => contact.id !== id);
+	contacts = contacts.filer(contact => contact.phone !== phone);
+
+	writeData();
 	
-	// функция която подава рези данни на html страницата
+	res.send(contacts);
 	
-	return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
 });
-
-
-// промяна на информация за контакт
-app.patch('/contacts/:id/:newinfo', (req, res) => {
-
-});
-
 
 
 function writeData(){
