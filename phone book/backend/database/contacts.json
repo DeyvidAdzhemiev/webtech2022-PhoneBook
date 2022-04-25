@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"firstname":"yordan","lastname":"pavlov","address":"sofia","email":"yordan@email.com","phone":"123456"},{"firstname":"ivan","lastname":"draganov","address":"burgas","email":"ivan@email.com","phone":"12354567"},{"firstname":"stoyan","lastname":"petkov","address":"varna","email":"stoyan@email.com","phone":"89845678"}]
+=======
+[{"firstname":"dasdas","lastname":"asdasd","address":"asdasd","email":"dancho@abv.bg","phone":"123456"},{"firstname":"asdasd","lastname":"asdasd","address":"asdasdasd","email":"ivancho@abv.bg","phone":"12354567"}]
+>>>>>>> 0654ca32d4889beae07799ad3157d4ab8e0b38b0
