@@ -37,13 +37,7 @@
     </div>
 
      <div class="menu">
-        <ul>
-
-            <li id="asen"> <img id="image" src="./images/background_login.jpg" > <button onclick="showInfo()" > Асен Павлов</button> <button> <img style="width: 30px; height: 30px;" src="./images/favorite.png"> </button> </li>
-            
-                <div class="lineBtwn"></div>
-
-         
+        <ul>    
         </ul>
     </div>
 
@@ -58,14 +52,12 @@
             <img src="./images/background_login.jpg" >
         </div>
 
-        <p id="frstName"> Иван </p>
-        <p id="lstName"> Иванов </p>
-        <p id="addrst"> бул. Джеймс Баучер </p>
-        <p id="eml"> dancho@abv.bg </p>
+        <p id="frstName"> </p>
+        <p id="lstName"> </p>
+        <p id="addrst"> </p>
+        <p id="eml"> </p>
 
-
-        <button onclick="addNumb()" > <img id="imagebtn" src="./images/add.png" > </button>
-        <button onclick="removeNumb()"><img id="imagebtn" src="./images/delBtn.png" ></button>
+        <div class="buttonsForAnotherPhones"></div>
 
         <table id="PhoneNumbers">
             <tr>
@@ -76,16 +68,16 @@
             <tr>
                 <td>1. </td>
                 <td>Мобилен</td>
-                <td id="currentPhone">0989878997</td>
+                <td id="currentPhone"> </td>
             </tr>
         </table>
 
         <div class="addNewNumber">
             <label>Име</label>
-            <input type="text" id="type" >
+            <input type="text" id="typeNumb" >
             <label>Телефонен номер</label>
             <input type="text" id="phoneNumbAdd">
-            <button> Добави </button>
+            <button onclick="submitAtnoherPhone()"> Добави </button>
         </div>
 
         <div class="removeNumber">

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[{"firstname":"yordan","lastname":"pavlov","address":"sofia","email":"yordan@email.com","phone":"123456"},{"firstname":"ivan","lastname":"draganov","address":"burgas","email":"ivan@email.com","phone":"12354567"},{"firstname":"stoyan","lastname":"petkov","address":"varna","email":"stoyan@email.com","phone":"89845678"}]
-=======
-[{"firstname":"dasdas","lastname":"asdasd","address":"asdasd","email":"dancho@abv.bg","phone":"123456"},{"firstname":"asdasd","lastname":"asdasd","address":"asdasdasd","email":"ivancho@abv.bg","phone":"12354567"}]
->>>>>>> 0654ca32d4889beae07799ad3157d4ab8e0b38b0
+[{"id":"0941440e-f360-4aac-8fc5-9a8c696732bc","firstname":"asdasd","lastname":"dhdfh","address":"dfhdfhdfh","email":"dfhdfhdfh","phones":[{"type":"мобилен","phone":"5553555"}]},{"id":"38c17ac4-3dd4-4dfd-96dc-5dea8fbccd3e","firstname":"ghfgh","lastname":"fghfgh","address":"fghfgh","email":"fghfgh","phones":[{"type":"мобилен","phone":"555"}]},{"id":"8a8392c2-e7e8-4684-81da-834054d501ac","firstname":"123123","lastname":"123123","address":"123123","email":"235235","phones":[{"type":"мобилен","phone":"4675465478555"}]}]

@@ -1,14 +1,35 @@
 // показва информация за контакта
-function showInfo(phone) {
+function showInfo(id) {
 
-    getInfoContact(phone);
+    getInfoContact(id);
+
+    console.log(id);
 
     const info = document.getElementsByClassName("main")[0].style.display;
 
     if( info === "" ) {
         document.getElementsByClassName("main")[0].style.display = "block";
         document.getElementsByClassName("menu")[0].style.display = "none";
-        getInfoContact(phone);
+        getInfoContact(id);
+
+    }
+
+
+}
+
+// показва информация за контакта
+function showInfoFromSearch(phone) {
+
+    getInfoContactSearch(phone);
+
+    //console.log(phone);
+
+    const info = document.getElementsByClassName("main")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("main")[0].style.display = "block";
+        document.getElementsByClassName("menu")[0].style.display = "none";
+        getInfoContactSearch(phone);
 
     }
 
@@ -19,7 +40,7 @@ function showInfo(phone) {
 function searchNumber() {
 
     const phone = document.getElementById("searchItem").value;
-    showInfo(phone);
+    showInfoFromSearch(phone);
 
 }
 
@@ -31,12 +52,14 @@ function hideInfo() {
 
 }
 
-function addNumb() {
+function addNumb(id) {
 
     const info = document.getElementsByClassName("addNewNumber")[0].style.display;
+    submitAtnoherPhone(id);
 
     if( info === "" ) {
         document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
+        submitAtnoherPhone(id);
 
     }
     else
@@ -47,7 +70,7 @@ function addNumb() {
 
 }
 
-function removeNumb() {
+function removeNumb(id) {
 
     const info = document.getElementsByClassName("removeNumber")[0].style.display;
 
@@ -95,6 +118,8 @@ function homeBtn() {
 
 }
 
+var numbers = ["5553555","555", "4675465478555"];
+
 // изквиква контактите ,за да се покажат
 document.addEventListener('DOMContentLoaded', () => {
     getItems();
@@ -116,7 +141,7 @@ function getItems() {
                     image.setAttribute('src', './images/background_login.jpg');
 
                     button.textContent = item.firstname + " " + item.lastname;
-                    button.setAttribute('onclick', 'showInfo('+ item.phone +')');
+                    button.setAttribute('onclick', 'showInfo('+ item.id +')');
 
                     li.appendChild(image);
                     li.appendChild(button);
@@ -135,8 +160,8 @@ function getItems() {
 }
 
 // middleware за показване на информацията на контактите
-function getInfoContact(phone) {
-    fetch('http://localhost:3000/contacts/' + phone)
+function getInfoContact(id) {
+    fetch('http://localhost:3000/contacts/' + id)
         .then((response) => response.json())
         .then((listContacts) => {
             if (listContacts && listContacts.length !== 0) {
@@ -150,10 +175,81 @@ function getInfoContact(phone) {
                 adrs.textContent = "Адрес: " + listContacts.address;
                 const eml = document.getElementById('eml');
                 eml.textContent = "Имейл:" + listContacts.email;
+
+                const buttonAdd = document.createElement('button');
+                buttonAdd.setAttribute('onclick', 'addNumb('+ listContacts.id +')');
+
+                const imageAdd = document.createElement('img');
+                imageAdd.setAttribute('id', 'imagebtn');
+                imageAdd.setAttribute('src', './images/add.png');
+
+                buttonAdd.appendChild(imageAdd);
+
+                const buttonRemove = document.createElement('button');
+                buttonRemove.setAttribute('onclick', 'removeNumb('+ listContacts.id +')');
+
+                const imageRem = document.createElement('img');
+                imageRem.setAttribute('id', 'imagebtn');
+                imageRem.setAttribute('src', './images/delBtn.png');
+
+                buttonRemove.appendChild(imageRem);
+
+                document.getElementsByClassName("buttonsForAnotherPhones")[0].appendChild(buttonAdd);
+                document.getElementsByClassName("buttonsForAnotherPhones")[0].appendChild(buttonRemove);
                 
+                const currentNumber = document.getElementById('currentPhone');
+                currentNumber.textContent = phone;
 
-                console.log(phone);
 
+            }
+        })
+
+
+}
+
+
+// middleware за показване на информацията на контактите
+function getInfoContactSearch(phone) {
+    fetch('http://localhost:3000/contactsSearch/' + phone)
+        .then((response) => response.json())
+        .then((listContacts) => {
+            if (listContacts && listContacts.length !== 0) {
+
+
+                const frstName = document.getElementById('frstName');
+                frstName.textContent = "Първо име: " + listContacts.firstname;
+                const lstName = document.getElementById('lstName');
+                lstName.textContent = "Фамилия: " + listContacts.lastname;
+                const adrs = document.getElementById('addrst');
+                adrs.textContent = "Адрес: " + listContacts.address;
+                const eml = document.getElementById('eml');
+                eml.textContent = "Имейл:" + listContacts.email;
+
+                const buttonAdd = document.createElement('button');
+                buttonAdd.setAttribute('onclick', 'addNumb('+ listContacts.id +')');
+
+                const imageAdd = document.createElement('img');
+                imageAdd.setAttribute('id', 'imagebtn');
+                imageAdd.setAttribute('src', './images/add.png');
+
+                buttonAdd.appendChild(imageAdd);
+
+                const buttonRemove = document.createElement('button');
+                buttonRemove.setAttribute('onclick', 'removeNumb('+ listContacts.id +')');
+
+                const imageRem = document.createElement('img');
+                imageRem.setAttribute('id', 'imagebtn');
+                imageRem.setAttribute('src', './images/delBtn.png');
+
+                buttonRemove.appendChild(imageRem);
+
+                const deleteUser = document.createElement('button');
+                deleteUser.setAttribute('onclick', 'removeContact('+ listContacts.id +')');
+                deleteUser.textContent = "Премахване на потребител";
+
+                document.getElementsByClassName("buttonsForAnotherPhones")[0].appendChild(buttonAdd);
+                document.getElementsByClassName("buttonsForAnotherPhones")[0].appendChild(buttonRemove);
+                document.getElementsByClassName("buttonsForAnotherPhones")[0].appendChild(deleteUser);
                 
                 const currentNumber = document.getElementById('currentPhone');
                 currentNumber.textContent = phone;
@@ -185,7 +281,32 @@ function submitUser(){
                                 lastname: lastnameUser,
                                 address: addressUser,
                                 email: emailUser,
-                                phone: phoneUser }),
+                                phone: [{"type": "мобилен",
+                                         "phone": phoneUser}] }),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+
+        document. location. reload();
+
+}
+
+
+// добавяне на нов телефонен номер
+function submitAtnoherPhone(id){
+
+    const typenumber = document.getElementById("typeNumb").value;
+    const phoneNumber = document.getElementById("phoneNumbAdd").value;
+
+
+    fetch('http://localhost:3000/contacts/' + id, {
+        method: 'PATCH',
+        body: JSON.stringify({  type: typenumber,
+                                phone: phoneNumber }),
+
         headers: new Headers({
             'Content-Type': 'application/json'
         })
@@ -195,6 +316,20 @@ function submitUser(){
 
 }
 
+// добавяне на нов телефонен номер
+function removeContact(id){
+
+
+    fetch('http://localhost:3000/contacts/' + id, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+
+}
 
 function autocomplete(inp, arr) {
     
@@ -251,7 +386,5 @@ function autocomplete(inp, arr) {
     });
   }
   
-
-  var numbers = ["123456","12354567", "123545678"];
   
   autocomplete(document.getElementById("searchItem"), numbers);

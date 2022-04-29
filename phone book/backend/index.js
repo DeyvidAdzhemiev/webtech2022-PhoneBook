@@ -9,6 +9,7 @@ app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/pub
 app.use(express.json());
 
 const fs = require('fs');
+const Uuid = require('uuid');
 
 let contacts = [];
 
@@ -22,23 +23,37 @@ app.get('/', (req, res) => {
 
 app.get('/contacts', (req, res) => {
     
+	// прочитаме данните от базата от данни
 	readData();
-    // res.sendFile(path.join(__dirname + '/index.html'))
+    
     return res.json(contacts);
 });
 
 // виждане на информация за потребител
-app.get('/contacts/:phone', (req, res) => {
+app.get('/contacts/:id', (req, res) => {
+    let id = req.params.id;
+	
+	if(!id){
+		return res.status(400).json({error: "Invalid parameter" });
+	}
+	
+	const contact = contacts.find(contact => contact.id === id);
+	
+
+	res.json(contact)
+});
+
+// виждане на информация за потребител
+app.get('/contactsSearch/:phone', (req, res) => {
     let phone = req.params.phone;
 	
 	if(!phone){
 		return res.status(400).json({error: "Invalid parameter" });
 	}
 	
-	const contact = contacts.find(contact => contact.phone === phone);
+	const contact = contacts.find(contact => contact.phones.find(currPhone => currPhone.phone == phone));
 	
-	// функция която подава рези данни на html страницата
-	// console.log(contact.email);
+	console.log(contact.email);
 
 	res.json(contact)
 });
@@ -58,12 +73,15 @@ app.post('/contacts', (req, res) => {
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
+	let Id = Uuid.v4();
+
 	const newContact = {
+		"id": Id,
 		"firstname": firstname,
 		"lastname": lastname,
 		"address": address,
 		"email": email,
-		"phone": phone,
+		"phones": phone
 	}
 	
 	contacts.push(newContact);
@@ -72,35 +90,62 @@ app.post('/contacts', (req, res) => {
 
 	res.send(contacts);
 	
-	//return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/public/index.html'))
 });
 
 // добавяне на нов телефонен номер към конкретен потребител
-app.post('/contacts/:phone/:AnotherPhone', (req, res) => {
+app.patch('/contacts/:id', (req, res) => {
 
-	let phone = req.params.phone;
-	let newPhone = req.params.AnotherPhone;
+	let Id = req.params.id;
+	let typeNum = req.body.type;
+	let anotherPhoneNum = req.body.phoneNumber;
 	
-	if(!phone || !newPhone){
+	if(!phone || !typeNum || !anotherPhoneNum){
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
-	let user = users.find(user => user.id === id);
+	let user = users.find(user => user.id === Id);
 
-		
+	let newNum = {
+		"type": typeNum,
+		"phone": anotherPhoneNum
+	}
+
+	user.phones.push(newNum);
+
+});
+
+// премахване на телефонен номер към конкретен потребител
+app.patch('/contacts/:id', (req, res) => {
+
+	let Id = req.params.id;
+	let typeNum = req.body.type;
+	let anotherPhoneNum = req.body.phoneNumber;
+	
+	if(!phone || !typeNum || !anotherPhoneNum){
+		return res.status(400).json({error: "Invalid data" });
+	}
+	
+	let user = users.find(user => user.id === Id);
+
+	let delNum = {
+		"type": typeNum,
+		"phone": anotherPhoneNum
+	}
+
+	user.phones = user.phones.filer(number => number != delNum);
 
 });
 
 // изтриване на потребител
-app.delete('/contacts/:phone', (req, res) => {
+app.delete('/contacts/:id', (req, res) => {
 	
-	const phone = req.params.phone;
+	const Id = req.params.id;
 	
-	if(!phone){
+	if(!Id){
 		return res.status(400).json({error: "Invalid parameter"});
 	}
 	
-	contacts = contacts.filer(contact => contact.phone !== phone);
+	contacts = contacts.filer(contact => contact.id !== Id);
 
 	writeData();
 	
