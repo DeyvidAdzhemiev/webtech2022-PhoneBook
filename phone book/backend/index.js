@@ -93,46 +93,51 @@ app.post('/contacts', (req, res) => {
 });
 
 // добавяне на нов телефонен номер към конкретен потребител
-app.patch('/contacts/:id', (req, res) => {
+app.patch('/contactsPhone/:id', (req, res) => {
 
 	let Id = req.params.id;
 	let typeNum = req.body.type;
-	let anotherPhoneNum = req.body.phoneNumber;
+	let anotherPhoneNum = req.body.phone;
 	
-	if(!phone || !typeNum || !anotherPhoneNum){
+	if(!Id || !typeNum || !anotherPhoneNum){
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
-	let user = users.find(user => user.id === Id);
+	let contact = contacts.find(user => user.id === Id);
+
+	console.log(contact);
 
 	let newNum = {
 		"type": typeNum,
 		"phone": anotherPhoneNum
 	}
 
-	user.phones.push(newNum);
+	contact.phones.push(newNum);
+	
+	writeData();
 
 });
 
 // премахване на телефонен номер към конкретен потребител
-app.patch('/contacts/:id', (req, res) => {
+app.delete('/contactsPhone/:id', (req, res) => {
 
 	let Id = req.params.id;
-	let typeNum = req.body.type;
-	let anotherPhoneNum = req.body.phoneNumber;
+	let anotherPhoneNum = req.body.phone;
 	
-	if(!phone || !typeNum || !anotherPhoneNum){
+	if(!Id || !anotherPhoneNum){
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
-	let user = users.find(user => user.id === Id);
+	let contact = contacts.find(user => user.id === Id);
 
-	let delNum = {
-		"type": typeNum,
-		"phone": anotherPhoneNum
-	}
 
-	user.phones = user.phones.filer(number => number != delNum);
+	contact.phones = contact.phones.filter(number => number.phone != anotherPhoneNum);
+
+	console.log(contact.phones);
+
+	writeData();
+
+	res.send(contacts);
 
 });
 
@@ -145,7 +150,7 @@ app.delete('/contacts/:id', (req, res) => {
 		return res.status(400).json({error: "Invalid parameter"});
 	}
 	
-	contacts = contacts.filer(contact => contact.id !== Id);
+	contacts = contacts.filter(contact => contact.id !== Id);
 
 	writeData();
 	
