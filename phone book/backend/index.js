@@ -8,6 +8,8 @@ const port = 3000;
 app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
 app.use(express.json());
 
+// import {readData, writeData } from '../public/functions/rw.js';
+
 const fs = require('fs');
 const Uuid = require('uuid');
 
@@ -158,7 +160,6 @@ app.delete('/contacts/:id', (req, res) => {
 	
 });
 
-
 function writeData(){
 
     const data = JSON.stringify(contacts);
@@ -181,13 +182,11 @@ function readData(){
   
         // parse JSON object
         const contact = JSON.parse(data.toString());
-       	contacts = contact;
+        contacts = contact;
   
     });
 
 }
-
-
 
 // слушаме на порт 3000 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

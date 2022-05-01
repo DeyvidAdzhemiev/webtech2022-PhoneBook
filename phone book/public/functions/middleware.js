@@ -1,122 +1,3 @@
-// показва информация за контакта
-function showInfo(id) {
-
-    const info = document.getElementsByClassName("main")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("main")[0].style.display = "block";
-        document.getElementsByClassName("menu")[0].style.display = "none";
-        getInfoContact(id);
-
-    }
-    console.log(id);
-
-}
-
-// показва информация за контакта
-function showInfoFromSearch(phone) {
-
-    const info = document.getElementsByClassName("main")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("main")[0].style.display = "block";
-        document.getElementsByClassName("menu")[0].style.display = "none";
-        getInfoContactSearch(phone);
-
-    }
-    console.log(phone);
-
-}
-
-// показва информация за въведеният номер в търсачката
-function searchNumber() {
-
-    const phone = document.getElementById("searchItem").value;
-    showInfoFromSearch(phone);
-
-}
-
-// скрива информацията за контакта
-function hideInfo() {
-
-    document.getElementsByClassName("main")[0].style.display = "";
-    document.getElementsByClassName("menu")[0].style.display = "block";
-
-}
-
-
-function addNumb(id) {
-
-    const info = document.getElementsByClassName("addNewNumber")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
-        submitAtnoherPhone(id);
-        location.reload();
-    }
-    else
-    {
-        document.getElementsByClassName("addNewNumber")[0].style.display = "";
-    }
-
-}
-
-function removeNumb(id) {
-
-    const info = document.getElementsByClassName("removeNumber")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("removeNumber")[0].style.display = "flex";
-        removePhoneNumber(id);
-        location.reload();
-    }
-    else
-    {
-        document.getElementsByClassName("removeNumber")[0].style.display = "";
-    }
-
-}
-
-function removeContact(id) {
-
-    removeContactById(id);
-    hideInfo();
-
-    location.reload();
-}
-
-// показва и скрива формата за регистрация
-function register() {
-
-    const info = document.getElementsByClassName("register")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("register")[0].style.display = "grid";
-        document.getElementsByClassName("menu")[0].style.display = "none";
-        document.getElementsByClassName("main")[0].style.display = "none";
-    }
-    else
-    {
-        document.getElementsByClassName("register")[0].style.display = "";
-        document.getElementsByClassName("menu")[0].style.display = "block";
-        document.getElementsByClassName("main")[0].style.display = "none";
-    }
-
-
-}
-
-// показва началната страница
-function homeBtn() {
-
-    document.getElementsByClassName("register")[0].style.display = "none";
-    document.getElementsByClassName("menu")[0].style.display = "block";
-    document.getElementsByClassName("main")[0].style.display = "none";
-
-}
-
-var numbers = ["5553555","555", "4675465478555"];
-
-// изквиква контактите ,за да се покажат
 document.addEventListener('DOMContentLoaded', () => {
     getItems();
 
@@ -137,15 +18,17 @@ function getItems() {
                     image.setAttribute('id', 'image');
                     image.setAttribute('src', './images/background_login.jpg');
 
+                    let Id = String(item.id);
+
                     button.textContent = item.firstname + " " + item.lastname;
-                    button.setAttribute('onclick', 'showInfo(`'+ item.id +'`)');
+                    button.setAttribute('onclick', 'showInfo(`'+ Id +'`)');
 
                     li.appendChild(image);
                     li.appendChild(button);
 
                     const line = document.createElement('div');
                     line.setAttribute('class', 'lineBtwn');
-    
+                
 
                     document.querySelector('ul').appendChild(li);
                     document.querySelector('ul').appendChild(line);
@@ -163,13 +46,17 @@ function getInfoContact(id) {
         .then((listContacts) => {
             if (listContacts && listContacts.length !== 0) {
 
-                // мета данните
-                document.getElementById('frstName').textContent = "Първо име: " + listContacts.firstname;
-                document.getElementById('lstName').textContent = "Фамилия: " + listContacts.lastname;
-                document.getElementById('addrst').textContent = "Адрес: " + listContacts.address;
-                document.getElementById('eml').textContent = "Имейл:" + listContacts.email;
 
-                // зачистване на стари бутони
+                const frstName = document.getElementById('frstName');
+                frstName.textContent = "Първо име: " + listContacts.firstname;
+                const lstName = document.getElementById('lstName');
+                lstName.textContent = "Фамилия: " + listContacts.lastname;
+                const adrs = document.getElementById('addrst');
+                adrs.textContent = "Адрес: " + listContacts.address;
+                const eml = document.getElementById('eml');
+                eml.textContent = "Имейл:" + listContacts.email;
+
+
                 var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
 
                 while(olddataBtn != null) {
@@ -179,7 +66,6 @@ function getInfoContact(id) {
 
                 }
 
-                // създаване на нови бутони
                 const buttonAdd = document.createElement('button');
                 buttonAdd.setAttribute('onclick', 'addNumb(`'+ listContacts.id +'`)');
 
@@ -202,9 +88,12 @@ function getInfoContact(id) {
                 deleteUser.setAttribute('onclick', 'removeContact(`'+ listContacts.id +'`)');
                 deleteUser.textContent = "Премахване на потребител";
 
-                document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
+                document.getElementById("buttonsForAnotherPhones").appendChild(buttonAdd);
+                document.getElementById("buttonsForAnotherPhones").appendChild(buttonRemove);
+                document.getElementById("buttonsForAnotherPhones").appendChild(deleteUser);
 
-                // зачисване на стари номера
+
+
                 var olddata = document.getElementById('PhoneNumbers').lastChild;
 
                 while(olddata != null) {
@@ -214,7 +103,8 @@ function getInfoContact(id) {
 
                 }
 
-                // записване на нови номера
+                
+
                 let NumberOfList1 = document.createElement('tr');
                 let count1 = document.createElement('td');
                 count1.textContent = "Номер";
@@ -223,7 +113,9 @@ function getInfoContact(id) {
                 let NumberPhone1 = document.createElement('td');
                 NumberPhone1.textContent = "Телефонен номер";
 
-                NumberOfList1.append(count1, NumberType1, NumberPhone1);
+                NumberOfList1.appendChild(count1);
+                NumberOfList1.appendChild(NumberType1);
+                NumberOfList1.appendChild(NumberPhone1);
 
                 document.getElementById('PhoneNumbers').appendChild(NumberOfList1);
 
@@ -238,13 +130,20 @@ function getInfoContact(id) {
                     let NumberPhone = document.createElement('td');
                     NumberPhone.textContent = phones[i].phone;
 
-                    NumberOfList.append(count, NumberType, NumberPhone);
+                    NumberOfList.appendChild(count);
+                    NumberOfList.appendChild(NumberType);
+                    NumberOfList.appendChild(NumberPhone);
+
                     document.getElementById('PhoneNumbers').appendChild(NumberOfList);
+
                     
                 }
 
+
             }
         })
+
+
 }
 
 
@@ -255,13 +154,17 @@ function getInfoContactSearch(phone) {
         .then((listContacts) => {
             if (listContacts && listContacts.length !== 0) {
 
-                // мета данните
-                document.getElementById('frstName').textContent = "Първо име: " + listContacts.firstname;
-                document.getElementById('lstName').textContent = "Фамилия: " + listContacts.lastname;
-                document.getElementById('addrst').textContent = "Адрес: " + listContacts.address;
-                document.getElementById('eml').textContent = "Имейл:" + listContacts.email;
 
-                // зачисване на стари бутони
+                const frstName = document.getElementById('frstName');
+                frstName.textContent = "Първо име: " + listContacts.firstname;
+                const lstName = document.getElementById('lstName');
+                lstName.textContent = "Фамилия: " + listContacts.lastname;
+                const adrs = document.getElementById('addrst');
+                adrs.textContent = "Адрес: " + listContacts.address;
+                const eml = document.getElementById('eml');
+                eml.textContent = "Имейл:" + listContacts.email;
+
+
                 var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
 
                 while(olddataBtn != null) {
@@ -271,7 +174,6 @@ function getInfoContactSearch(phone) {
 
                 }
 
-                //създаване на нови бутони
                 const buttonAdd = document.createElement('button');
                 buttonAdd.setAttribute('onclick', 'addNumb(`'+ listContacts.id +'`)');
 
@@ -294,9 +196,12 @@ function getInfoContactSearch(phone) {
                 deleteUser.setAttribute('onclick', 'removeContact(`'+ listContacts.id +'`)');
                 deleteUser.textContent = "Премахване на потребител";
 
-                document.getElementById("buttonsForAnotherPhones").appendChild(buttonAdd, buttonRemove, deleteUser);
+                document.getElementById("buttonsForAnotherPhones").appendChild(buttonAdd);
+                document.getElementById("buttonsForAnotherPhones").appendChild(buttonRemove);
+                document.getElementById("buttonsForAnotherPhones").appendChild(deleteUser);
 
-                // зачисване на стари номера
+
+
                 var olddata = document.getElementById('PhoneNumbers').lastChild;
 
                 while(olddata != null) {
@@ -306,7 +211,8 @@ function getInfoContactSearch(phone) {
 
                 }
 
-                // добавяне на нови номера
+                
+
                 let NumberOfList1 = document.createElement('tr');
                 let count1 = document.createElement('td');
                 count1.textContent = "Номер";
@@ -315,7 +221,10 @@ function getInfoContactSearch(phone) {
                 let NumberPhone1 = document.createElement('td');
                 NumberPhone1.textContent = "Телефонен номер";
 
-                NumberOfList1.append(count1, NumberType1, NumberPhone1);
+                NumberOfList1.appendChild(count1);
+                NumberOfList1.appendChild(NumberType1);
+                NumberOfList1.appendChild(NumberPhone1);
+
                 document.getElementById('PhoneNumbers').appendChild(NumberOfList1);
 
                 let phones = listContacts.phones;
@@ -329,13 +238,21 @@ function getInfoContactSearch(phone) {
                     let NumberPhone = document.createElement('td');
                     NumberPhone.textContent = phones[i].phone;
 
-                    NumberOfList.append(count, NumberType, NumberPhone);
+                    NumberOfList.appendChild(count);
+                    NumberOfList.appendChild(NumberType);
+                    NumberOfList.appendChild(NumberPhone);
+
                     document.getElementById('PhoneNumbers').appendChild(NumberOfList);
+
                     
                 }
-                
+
+
+
             }
         })
+
+
 }
 
 // регистиране на нов
@@ -351,77 +268,23 @@ function submitUser(){
         const emailUser = document.getElementById("email").value;
         const phoneUser = document.getElementById("phone").value;
 
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let phoneNumberPattern = /^\d{9}$/;
 
-        if(emailUser.match(pattern) && phoneUser.match(phoneNumberPattern)) {   
+    fetch('http://localhost:3000/contacts', {
+        method: 'POST',
+        body: JSON.stringify({ firstname: firstnameUser,
+                                lastname: lastnameUser,
+                                address: addressUser,
+                                email: emailUser,
+                                phone: [{"type": "мобилен",
+                                         "phone": phoneUser}] }),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then((response) => response.json())
+        .then((result) => console.log(result))
 
-            fetch('http://localhost:3000/contacts', {
-            method: 'POST',
-            body: JSON.stringify({ firstname: firstnameUser,
-                                    lastname: lastnameUser,
-                                    address: addressUser,
-                                    email: emailUser,
-                                    phone: [{"type": "мобилен",
-                                            "phone": phoneUser}] }),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            })
-            .then((response) => response.json())
-            .then((result) => console.log(result))
-
-            document. location. reload();
-
-        } else {
-
-            let message = document.getElementById('message');
-            message.textContent = "data is not correct";
-
-        }
-
-}
-
-// проверява за валиден email и телефонен номер
-function check(inpEmail, inpPhone) {
-
-    inpEmail.addEventListener("input", function(e) {
-
-        val = this.value;
-
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "email is not correct";
-            document.getElementById('email').style.border = "1px solid red";
-        } else {
-            document.getElementById('email').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
-
-    inpPhone.addEventListener("input", function(e) {
-
-        val = this.value;
-
-        let pattern = /^\d{9}$/;
-
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "phone is not correct";
-            document.getElementById('phone').style.border = "1px solid red";
-        } else {
-            document.getElementById('phone').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
+        document. location. reload();
 
 }
 
@@ -431,8 +294,14 @@ function submitAtnoherPhone(id){
 
     //const typenumber = document.getElementById("typeNumb").value;
     //const phoneNumber = document.getElementById("phoneNumbAdd").value;
+
+
     const typenumber = "dancho";
     const phoneNumber = "8981234124";
+
+    console.log(typenumber);
+
+
 
     fetch('http://localhost:3000/contactsPhone/' + id, {
         method: 'PATCH',
@@ -452,6 +321,7 @@ function submitAtnoherPhone(id){
 function removePhoneNumber(id){
 
     //const phoneNumber = document.getElementById("phoneNumbRem").value;
+
     const phoneNumber = "8981234124";
 
     fetch('http://localhost:3000/contactsPhone/' + id, {
@@ -466,9 +336,9 @@ function removePhoneNumber(id){
 
 }
 
-
 // премахване на нов телефонен номер
 function removeContactById(id){
+
 
     fetch('http://localhost:3000/contacts/' + id, {
         method: 'DELETE',
@@ -480,63 +350,3 @@ function removeContactById(id){
         .then((result) => console.log(result))
 
 }
-
-
-function autocomplete(inp, arr) {
-    
-    
-    inp.addEventListener("input", function(e) {
-        val = this.value;
-        
-        closeAllLists();
-        if (!val) { return false;}
-
-       
-        let a = document.createElement("div");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        
-        this.parentNode.appendChild(a);
-        
-        for (let i = 0; i < arr.length; i++) {
-          
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            
-            let b = document.createElement("div");
-            
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-            
-            b.addEventListener("click", function(e) {
-                
-                inp.value = this.getElementsByTagName("input")[0].value;
-
-                closeAllLists();
-            });
-            a.appendChild(b);
-
-          }
-        }
-    });
-    
-
-    
-    function closeAllLists(elmnt) {
-      
-      var x = document.getElementsByClassName("autocomplete-items");
-      for (let i = 0; i < x.length; i++) {
-        if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode.removeChild(x[i]);
-        }
-      }
-    }
-    
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-  }
-  
-  
-  autocomplete(document.getElementById("searchItem"), numbers);
-  check(document.getElementById("email"), document.getElementById("phone"));

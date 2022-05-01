@@ -1,11 +1,12 @@
+//import fs from 'fs';
 const fs = require('fs');
 
 
-function writeData(){
+export function writeData(contacts){
 
-    const data = JSON.stringify(messages);
+    const data = JSON.stringify(contacts);
   
-    fs.writeFile('./messages.json', data, (err) => {
+    fs.writeFile('../../backend/database/contacts.json', data, (err) => {
         if(err) {
             throw err;
         }
@@ -14,19 +15,19 @@ function writeData(){
 }
 
 
-function readData(){
+export function readData(contacts){
 
-    fs.readFile('./messages.json', 'utf-8', (err, data) => {
+    fs.readFile('../../backend/database/contacts.json', 'utf-8', (err, data) => {
         if (err) {
             throw err;
         }
   
         // parse JSON object
-        const user = JSON.parse(data.toString());
-        messages = user;
+        const contact = JSON.parse(data.toString());
+        contacts = contact;
   
     });
 
 }
 
-export {writeData, readData };
+// export {writeData, readData };
