@@ -45,14 +45,36 @@ function hideInfo() {
 }
 
 
+function isAdded(btnAdd, btnRemove, id) {
+
+
+    btnAdd.addEventListener('click', function(e) {
+
+        submitAtnoherPhone(id);
+
+        location.reload();
+
+    });
+
+
+    btnRemove.addEventListener('click', function(e) {
+
+        removePhoneNumber(id);
+
+        location.reload();
+
+    });
+
+
+}
+
 function addNumb(id) {
 
     const info = document.getElementsByClassName("addNewNumber")[0].style.display;
 
     if( info === "" ) {
         document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
-        submitAtnoherPhone(id);
-        location.reload();
+        isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
     }
     else
     {
@@ -67,8 +89,7 @@ function removeNumb(id) {
 
     if( info === "" ) {
         document.getElementsByClassName("removeNumber")[0].style.display = "flex";
-        removePhoneNumber(id);
-        location.reload();
+        isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
     }
     else
     {
@@ -429,10 +450,10 @@ function check(inpEmail, inpPhone) {
 // добавяне на нов телефонен номер
 function submitAtnoherPhone(id){
 
-    //const typenumber = document.getElementById("typeNumb").value;
-    //const phoneNumber = document.getElementById("phoneNumbAdd").value;
-    const typenumber = "dancho";
-    const phoneNumber = "8981234124";
+    const typenumber = document.getElementById("typeNumb").value;
+    const phoneNumber = document.getElementById("phoneNumbAdd").value;
+    //const typenumber = "dancho";
+    //const phoneNumber = "8981234124";
 
     fetch('http://localhost:3000/contactsPhone/' + id, {
         method: 'PATCH',
@@ -451,8 +472,8 @@ function submitAtnoherPhone(id){
 // премахване на нов телефонен номер
 function removePhoneNumber(id){
 
-    //const phoneNumber = document.getElementById("phoneNumbRem").value;
-    const phoneNumber = "8981234124";
+    const phoneNumber = document.getElementById("phoneNumbRem").value;
+    //const phoneNumber = "8981234124";
 
     fetch('http://localhost:3000/contactsPhone/' + id, {
         method: 'DELETE',
