@@ -1,13 +1,13 @@
-//import fs from 'fs';
 const fs = require('fs');
 
-
-export function writeData(contacts){
+function writeData(contacts){
 
     const data = JSON.stringify(contacts);
+
+    console.log(data);
   
-    fs.writeFile('../../backend/database/contacts.json', data, (err) => {
-        if(err) {
+    fs.writeFile('../backend/database/contacts.json', data, (err) => {
+        if(err) { // C:\Users\dancho\Desktop\web\project\phone book - all\backend\database\contacts.json
             throw err;
         }
     });
@@ -15,9 +15,9 @@ export function writeData(contacts){
 }
 
 
-export function readData(contacts){
+function readData(contacts){
 
-    fs.readFile('../../backend/database/contacts.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/database/contacts.json', 'utf-8', (err, data) => {
         if (err) {
             throw err;
         }
@@ -30,4 +30,4 @@ export function readData(contacts){
 
 }
 
-// export {writeData, readData };
+module.exports = { writeData:writeData, readData:readData }

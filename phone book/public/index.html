@@ -24,9 +24,6 @@
                 <a href="http://localhost:3000/newContact"></a>
                 <img style="width: 30px; height: 30px;" src="./images/add.png" > Добави
             </button>
-            <button id="favBtn">
-                <img style="width: 30px; height: 30px;" src="./images/favorites.png" > Любими
-            </button>
         </div>
 
         <div class="search">
@@ -36,7 +33,8 @@
             
     </div>
 
-     <div class="menu">
+    <!-- визуализиране на всички контакти -->
+    <div class="menu">
         <ul>    
         </ul>
     </div>
@@ -48,9 +46,7 @@
             <button onclick="hideInfo()"><img src="./images/back.png"></button>
         </div>
 
-        <div class="personalInfo">
-            <img src="./images/background_login.jpg" >
-        </div>
+        <div class="personalInfo"></div>
 
         <p id="frstName"> </p>
         <p id="lstName"> </p>
@@ -82,23 +78,38 @@
 
     <div class="register">
 
-        <label>Име</label>
-        <input type="text" id="firstname" >
-        <label>Фамилия</label>
-        <input type="text" id="lastname">
-        <label>Адрес</label>
-        <input type="text" id="address">
-        <label>Имейл</label>
-        <input type="text" id="email">
-        <label>Телефонен номер</label>
-        <input type="text" id="phone">
-        <span id="message"></span>
+        <!-- <form action="/contacts" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+              <input type="file" class="form-control-file" name="uploaded_file">
+              <input type="text" class="form-control" placeholder="Number of speakers" name="nspeakers">
+              <input type="submit" value="Get me the stats!" class="btn btn-default">            
+            </div>
+          </form> -->
 
-        <button onclick="submitUser()">Добави</button>
+        <form action="/contacts" method="post" enctype="multipart/form-data">
+            <label>Име</label>
+            <input type="text" id="firstname" name="firstname">
+            <label>Фамилия</label>
+            <input type="text" id="lastname" name="lastname">
+            <label>Адрес</label>
+            <input type="text" id="address" name="address">
+            <label>Имейл</label>
+            <input type="text" id="email" name="email">
+            <label>Телефонен номер</label>
+            <input type="text" id="phone" name="phone">
+            <span id="message"></span>
+            <label>Изберете снимка:</label>
+            <input type="file" name="uploaded_file">
 
+            <input type="submit" value="Get me the stats!">
+            <!-- <button type="submit" onclick="submitUser()">Добави</button -->
+
+        </form>
     </div>
 
 </div>
     <script src="./functions/index.js"></script>
+    <script src="./functions/visualisation.js"></script>
+    <script src="./functions/middleware.js"></script>
 </body>
 </html>

@@ -4,21 +4,37 @@ const path = require('path'); // to join paths according to your OS (normalize)
 const app = express(); // create application from express
 const port = 3000;
 
+const fileUpload = require('express-fileupload');
+
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
 app.use(express.json());
 
-// import {readData, writeData } from '../public/functions/rw.js';
-
 const fs = require('fs');
 const Uuid = require('uuid');
+const multer = require("multer");
+
+// const { readData, writeData } = require('../public/functions/rw');
 
 let contacts = [];
 
+var storage = multer.diskStorage({
+	destination: function(req, file, callback) {
+		callback(null, '../public/images/upload/');
+	},
+	filename: function(req, file, callback) {
+		callback(null, file.originalname);
+	}
+
+});
+
+var upload = multer({ storage: storage });
+
+//const upload = multer({ dest: './upload/' });
+
 // визуализиране на начална страница със списъка с контакти
 app.get('/', (req, res) => {
-    
-	
+
     // res.sendFile(path.join(__dirname + '/index.html'))
     return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/phone book - all/public/index.html'))
 });
@@ -60,18 +76,21 @@ app.get('/contactsSearch/:phone', (req, res) => {
 	res.json(contact)
 });
 
-// добавяне на нов потребител
-app.post('/contacts', (req, res) => {
+// добавяне на нов потребител upload.single('myFile')
+app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
+
+
+	console.log(req.file.filename, req.body);
+
 	
     const firstname = req.body.firstname;
 	const lastname = req.body.lastname;
 	const address = req.body.address;
 	const email = req.body.email;
 	const phone = req.body.phone;
+	const avatar = req.file.filename;
 
-	console.log(firstname);
-	
-	if(!firstname || !lastname || !address || !email || !phone) {
+	if(!firstname || !lastname || !address || !email || !phone || !avatar) {
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
@@ -83,7 +102,9 @@ app.post('/contacts', (req, res) => {
 		"lastname": lastname,
 		"address": address,
 		"email": email,
-		"phones": phone
+		"phones": [{"type": "мобилен",
+					"phone": phone}],
+		"avatar": avatar
 	}
 	
 	contacts.push(newContact);
@@ -163,9 +184,11 @@ app.delete('/contacts/:id', (req, res) => {
 function writeData(){
 
     const data = JSON.stringify(contacts);
+
+    //console.log(data);
   
     fs.writeFile('./database/contacts.json', data, (err) => {
-        if(err) {
+        if(err) { // C:\Users\dancho\Desktop\web\project\phone book - all\backend\database\contacts.json
             throw err;
         }
     });
@@ -182,6 +205,7 @@ function readData(){
   
         // parse JSON object
         const contact = JSON.parse(data.toString());
+		//console.log(contact);
         contacts = contact;
   
     });
