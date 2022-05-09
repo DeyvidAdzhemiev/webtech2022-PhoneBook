@@ -4,7 +4,10 @@ const path = require('path'); // to join paths according to your OS (normalize)
 const app = express(); // create application from express
 const port = 3000;
 
-const fileUpload = require('express-fileupload');
+const dotenv = require('dotenv')
+const mongoose = require('mongoose');
+const {MongoClient} = require('mongodb');
+
 
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
@@ -77,10 +80,10 @@ app.get('/contactsSearch/:phone', (req, res) => {
 });
 
 // добавяне на нов потребител upload.single('myFile')
-app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
+//app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
+app.post('/contacts', (req, res) => {
 
-
-	console.log(req.file.filename, req.body);
+	// console.log(req.file.filename, req.body);
 
 	
     const firstname = req.body.firstname;
@@ -88,30 +91,51 @@ app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 	const address = req.body.address;
 	const email = req.body.email;
 	const phone = req.body.phone;
-	const avatar = req.file.filename;
+	// //const avatar = req.file.filename;
 
-	if(!firstname || !lastname || !address || !email || !phone || !avatar) {
-		return res.status(400).json({error: "Invalid data" });
-	}
+	// if(!firstname || !lastname || !address || !email || !phone) {
+	// 	return res.status(400).json({error: "Invalid data" });
+	// }
 	
-	let Id = Uuid.v4();
+	// let Id = Uuid.v4();
 
-	const newContact = {
-		"id": Id,
-		"firstname": firstname,
-		"lastname": lastname,
-		"address": address,
-		"email": email,
-		"phones": [{"type": "мобилен",
-					"phone": phone}],
-		"avatar": avatar
-	}
+	// const newContact = {
+	// 	"id": Id,
+	// 	"firstname": firstname,
+	// 	"lastname": lastname,
+	// 	"address": address,
+	// 	"email": email,
+	// 	"phones": [{"type": "мобилен",
+	// 				"phone": phone}]
+	// }
 	
-	contacts.push(newContact);
+	// contacts.push(newContact);
 
-	writeData();
+	const client = new MongoClient("mongodb+srv://Deyvid:005017@cluster0.tltxh.mongodb.net/test");
 
-	res.send(contacts);
+	client.connect();
+
+	// writeData();
+		  const database = client.db("phonebook");
+		  const users = database.collection("users");
+		  // create a document to insert
+		  let Id = Uuid.v4();
+
+		  const newContact = {
+			  "id": Id,
+			  "firstname": firstname,
+			  "lastname": lastname,
+			  "address": address,
+			  "email": email,
+			  "phones": [{"type": "мобилен",
+						  "phone": phone}]
+		  }
+		  
+		  const result = users.insertOne(newContact);
+		  console.log(`A document was inserted with the _id: ${result.insertedId}`);
+
+
+	res.send(`A document was inserted with the _id: ${result.insertedId}`);
 	
 });
 
@@ -213,4 +237,9 @@ function readData(){
 }
 
 // слушаме на порт 3000 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(3000
+    // 3000, async () => {
+	// 	await mongoose.connect("mongodb+srv://Deyvid:005017@cluster0.tltxh.mongodb.net/test");
+    //     console.log('Your server and DB are ready!')
+    // }
+);
