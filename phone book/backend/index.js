@@ -4,7 +4,12 @@ const path = require('path'); // to join paths according to your OS (normalize)
 const app = express(); // create application from express
 const port = 3000;
 
-const fileUpload = require('express-fileupload');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const {MongoClient} = require('mongodb');
+var userModel = require('./models/Contact');
+
+const client = new MongoClient("mongodb+srv://webtech2022:webtech2022@cluster0.t7xdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
@@ -35,6 +40,13 @@ var upload = multer({ storage: storage });
 // визуализиране на начална страница със списъка с контакти
 app.get('/', (req, res) => {
 
+	client.connect(err => {
+		client.db("Contacts").collection("contact").find({}).toArray( (err, result) => {
+			if (err) throw err;
+			contacts = result;
+			console.log("fetched");
+		})
+	})
     // res.sendFile(path.join(__dirname + '/index.html'))
     return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/phone book - all/public/index.html'))
 });
@@ -42,7 +54,14 @@ app.get('/', (req, res) => {
 app.get('/contacts', (req, res) => {
     
 	// прочитаме данните от базата от данни
-	readData();
+	//readData();
+	client.connect(err => {
+		client.db("Contacts").collection("contact").find({}).toArray( (err, result) => {
+			if (err) throw err;
+			contacts = result;
+			console.log("fetched");
+		})
+	})
     
     return res.json(contacts);
 });
@@ -79,37 +98,66 @@ app.get('/contactsSearch/:phone', (req, res) => {
 // добавяне на нов потребител upload.single('myFile')
 app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 
+	// console.log(req.file.filename, req.body);
 
-	console.log(req.file.filename, req.body);
 
 	
-    const firstname = req.body.firstname;
-	const lastname = req.body.lastname;
+    const firstName = req.body.firstname;
+	const lastName = req.body.lastname;
 	const address = req.body.address;
 	const email = req.body.email;
 	const phone = req.body.phone;
 	const avatar = req.file.filename;
 
-	if(!firstname || !lastname || !address || !email || !phone || !avatar) {
+	if(!firstName || !lastName || !address || !email || !phone || !avatar) {
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
 	let Id = Uuid.v4();
 
-	const newContact = {
-		"id": Id,
-		"firstname": firstname,
-		"lastname": lastname,
-		"address": address,
-		"email": email,
-		"phones": [{"type": "мобилен",
+	const newContact = new userModel({
+		id: Id,
+		firstName: firstName,
+		lastName: lastName,
+		address: address,
+		email: email,
+		phones: [{"type": "мобилен",
 					"phone": phone}],
-		"avatar": avatar
-	}
-	
-	contacts.push(newContact);
+		avatar: avatar
+	});
 
-	writeData();
+	const validation = newContact.validateSync();
+
+	if(validation) {
+	 	return res.status(400).json(validation);
+	}
+
+
+	client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
+		if ( err ) throw err;
+		console.log("insered");
+	})
+
+
+	// const newContact = {
+	// 	"id": Id,
+	// 	"firstname": firstname,
+	// 	"lastname": lastname,
+	// 	"address": address,
+	// 	"email": email,
+	// 	"phones": [{"type": "мобилен",
+	// 				"phone": phone}],
+	// 	"avatar": avatar
+	// }
+
+	// client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
+	// 	if ( err ) throw err;
+	// 	console.log("insered");
+	// })
+	
+	//contacts.push(newContact);
+
+	//writeData();
 
 	res.send(contacts);
 	
