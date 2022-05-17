@@ -1,0 +1,402 @@
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+      background-color:aquamarine;
+      display: flex;
+      justify-content: center;
+  }
+  
+  .container {
+      overflow: hidden;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      
+  }
+  
+  .nav {
+      background-color: rgb(57, 166, 240);
+      position:relative;
+      width: 80%;
+      height: 65px;
+      display: flex;
+      border-radius: 20px;
+      margin: 80px;
+  } 
+
+  .nav button {
+      background-color: rgba(255,255,255,0);
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .nav button img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: none;
+      margin: 5px 15px;
+  }
+
+  .buttons{
+      display: flex;
+      justify-content: center;
+      margin: 0% 0% 0% 20%;
+      
+  }
+  
+  .buttons button{
+      font-size: large;
+      font-weight: bold;
+      margin: 0px 30px;
+      display: flex;
+      
+      
+  }
+
+  .buttons button img {
+      background-color: rgba(255,255,255,0);
+      margin: 5px;
+  }
+
+  .buttons button:hover{
+      cursor: pointer;
+      border: 1px solid black;
+
+  }
+
+  .search{
+    position: absolute;
+    right: 5%;
+    top: 20%;
+  }
+
+  .search input{
+      height: 35px;
+      border-radius: 20px;
+      width: 270px;
+      text-align: end;
+      padding: 0px 10px;
+      margin: 0px 10px;
+  }
+
+  .menu ul li button:hover{
+      cursor: pointer;
+      font-weight: bold;
+  }
+
+  
+  span {
+      font-weight: bold;
+      padding: 5px;
+  }
+  
+  .menu {
+      background-color: rgba(255, 255, 255, 0.6);
+      position: relative;
+      margin: 10px;
+      float: left;
+      width: 60%;
+      height: 300px;
+      overflow: auto;
+  }
+  
+  .menu ul {
+      list-style: none;
+      display: block;
+      margin: 10px 30px;
+  }
+  
+  .menu ul li{
+      width: 300px;
+      text-align: left;
+      margin: 0px 25px;
+  }
+  
+  .menu ul li button {
+      font-size: medium;
+      font-style: italic;
+      
+  }
+
+  .menu ul li button img {
+      width: 70%;
+  }
+  
+  .menu ul a {
+      position: absolute;
+      left: 5%;
+      font-size: large;
+  }
+  
+  .menu button {
+      background: none;
+      background-color: rgba(255,255,255,0);
+      border: none;
+  }
+  
+  .lineBtwn {
+      position: relative;
+      display: inline-block;
+      margin: 5px;
+      width: 100%;
+      border-bottom: 1px solid grey;
+  }
+  
+  .main {
+      background-color: rgb(147, 99, 242);
+      position: relative;
+      left: 0%;
+      text-align: left;
+      float: left;
+      border: 3px solid white;
+      display: none;
+      padding: 20px;
+      width: 60%;
+      height: fit-content;
+
+  }
+  
+  .personalInfo {
+      position: absolute;
+      left: 300px;
+      top: 15%;
+  }
+  
+  .personalInfo img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+  }
+  
+  .main button {
+      background: none;
+      background-color: rgba(255,255,255,0);
+      border: none;
+  }
+  
+  .register {
+      position: relative;
+      top: 15%;
+      left: 29%;
+      background-color: rgba(255, 255, 255, 0.6);
+      width: 600px;
+      height: fit-content;
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      align-items: center;
+  }
+  
+  .register label {
+      font-style: italic;
+      font-size: medium;
+      margin: 10px;
+  }
+  
+  .register input {
+      width: 200px;
+      height: 25px;
+      padding: 5px;
+      margin: 0px 50px;
+  }
+  
+  .register button {
+      background: none;
+      border: none;
+      margin: 20px;
+      padding: 5px;
+  }
+  
+  .menuIcon {
+      width: 90%;
+      height: 5px;
+      background-color: black;
+      margin: 6px 0px;
+      position: relative;
+      left: 5%;
+      display: none;
+  }
+  
+  @media only screen and (max-width: 850px) {
+
+
+
+      
+    .nav  {
+        position: relative;
+        height: 130px;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 40px 0px 10px 10px;
+    }
+
+    .nav button {
+        margin: 0px 20px;
+    }
+
+    .nav button img {
+        display: none;
+    }
+
+    .search {
+        position: absolute;
+        left: 0px;
+        top: 10px;
+    }
+
+    .buttons {
+        position: relative;
+        left: 0%;
+        top: 20%;
+        margin: 0px 0px;
+    }
+
+    #homeBtn img {
+        display: block;
+    }
+
+    #addBtn img {
+        display: block;
+    }
+
+    #favBtn img {
+        display: block;
+    }
+
+    .menu {
+        left: 0%;
+        width: 95%;
+    }
+
+    .menu ul {
+        margin: 10px 0px;
+    }
+    
+    .register {
+        left: 0%;
+        width: 90%;
+    }
+
+    .main {
+        left: 0%;
+        width: 90%;
+    }
+
+    .personalInfo {
+        left: 70%;
+    }
+
+    .personalInfo img {
+        width: 80px;
+        height: 80px;
+    }
+
+
+
+  }
+  
+  
+  @media only screen and (max-width: 1250px)  and (min-width: 851px) {
+      
+    .nav  {
+        position: relative;
+        height: 80px;
+        width: 95%;
+        margin: 40px 0px 10px 10px;
+    }
+
+    .nav button {
+        margin: 0px 20px;
+    }
+
+
+    .search {
+        position: absolute;
+        top: 25%;
+    }
+
+    .buttons {
+        position: absolute;
+        left: 15%;
+        top: 10%;
+        margin: 0px 0px;
+    }
+
+    #homeBtn img {
+        display: block;
+    }
+
+    #addBtn img {
+        display: block;
+    }
+
+    #favBtn img {
+        display: block;
+    }
+
+    .menu {
+        left: 0%;
+        width: 95%;
+    }
+
+    .menu ul {
+        margin: 10px 0px;
+    }
+    
+    .register {
+        left: 3%;
+        width: 95%;
+    }
+
+    .main {
+        left: 0%;
+        width: 70%;
+    }
+  
+  
+  }
+  
+  .backBtn {
+      position: absolute;
+      left: 85%;
+  }
+  
+  .backBtn img {
+      width: 30px;
+      height: 30px;
+  }
+  
+  #PhoneNumbers tr td {
+      padding: 10px 20px;
+  }
+  
+  #image {
+      width: 35px; 
+      height: 35px; 
+      border-radius: 50px;
+  }
+  
+  #imagebtn {
+      width: 25px; 
+      height: 25px; 
+      border-radius: 50px;
+  }
+  
+
+  #gifHomeBtn {
+    
+  }
