@@ -73,7 +73,7 @@ function getItems() {
             if (listItems && listItems.length !== 0) {
                 listItems.map(item => {
                     const li = document.createElement('li');
-                    const button = createButton(item.firstname + " " + item.lastname, 'showInfo(`'+ item.id +'`)');
+                    const button = createButton(item.firstName + " " + item.lastName, 'showInfo(`'+ item.id +'`)');
                     const image = createImage('image', './images/upload/' + item.avatar);
 
                     li.appendChild(image);
@@ -98,7 +98,7 @@ function getInfoContact(id) {
             if (listContacts && listContacts.length !== 0) {
 
                 // мета данните
-                createMetaData("Първо име: " + listContacts.firstname, "Фамилия: " + listContacts.lastname
+                createMetaData("Първо име: " + listContacts.firstName, "Фамилия: " + listContacts.lastName
                                 ,"Адрес: " + listContacts.address, "Имейл:" + listContacts.email);
 
                 const image = createImage('', './images/upload/' + listContacts.avatar);
@@ -140,8 +140,12 @@ function getInfoContactSearch(phone) {
             if (listContacts && listContacts.length !== 0) {
 
                 // мета данните
-                createMetaData("Първо име: " + listContacts.firstname, "Фамилия: " + listContacts.lastname
+                createMetaData("Първо име: " + listContacts.firstName, "Фамилия: " + listContacts.lastName
                                 ,"Адрес: " + listContacts.address, "Имейл:" + listContacts.email);
+
+                const image = createImage('', './images/upload/' + listContacts.avatar);
+
+                document.getElementsByClassName("personalInfo")[0].appendChild(image);
 
                 // зачистване на стари бутони
                 var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
@@ -189,8 +193,8 @@ function submitUser(){
 
             fetch('http://localhost:3000/contacts', {
             method: 'POST',
-            body: JSON.stringify({ firstname: firstnameUser,
-                                    lastname: lastnameUser,
+            body: JSON.stringify({ firstName: firstnameUser,
+                                    lastName: lastnameUser,
                                     address: addressUser,
                                     email: emailUser,
                                     phone: [{"type": "мобилен",
@@ -210,45 +214,6 @@ function submitUser(){
             message.textContent = "data is not correct";
 
         }
-
-}
-
-// проверява за валиден email и телефонен номер
-function check(inpEmail, inpPhone) {
-
-    inpEmail.addEventListener("input", function(e) {
-
-        val = this.value;
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "email is not correct";
-            document.getElementById('email').style.border = "1px solid red";
-        } else {
-            document.getElementById('email').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
-
-    inpPhone.addEventListener("input", function(e) {
-
-        val = this.value;
-        let pattern = /^\d{9}$/;
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "phone is not correct";
-            document.getElementById('phone').style.border = "1px solid red";
-        } else {
-            document.getElementById('phone').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
 
 }
 

@@ -1,25 +1,23 @@
 const express = require('express'); // get express function
 const path = require('path'); // to join paths according to your OS (normalize)
-
-const app = express(); // create application from express
-const port = 3000;
-
+const fs = require('fs');
+const Uuid = require('uuid');
+const multer = require("multer");
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const {MongoClient} = require('mongodb');
 var userModel = require('./models/Contact');
+
+const app = express(); // create application from express
+const port = 3000;
+
+const { getContacts, getContact, newContact, getContactByPhone } = require('./CRUD');
 
 const client = new MongoClient("mongodb+srv://webtech2022:webtech2022@cluster0.t7xdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
 app.use(express.json());
-
-const fs = require('fs');
-const Uuid = require('uuid');
-const multer = require("multer");
-
-// const { readData, writeData } = require('../public/functions/rw');
 
 let contacts = [];
 
@@ -35,18 +33,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-//const upload = multer({ dest: './upload/' });
-
 // визуализиране на начална страница със списъка с контакти
 app.get('/', (req, res) => {
 
-	client.connect(err => {
-		client.db("Contacts").collection("contact").find({}).toArray( (err, result) => {
-			if (err) throw err;
-			contacts = result;
-			console.log("fetched");
-		})
-	})
     // res.sendFile(path.join(__dirname + '/index.html'))
     return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/phone book - all/public/index.html'))
 });
@@ -54,15 +43,13 @@ app.get('/', (req, res) => {
 app.get('/contacts', (req, res) => {
     
 	// прочитаме данните от базата от данни
-	//readData();
-	client.connect(err => {
+    client.connect(err => {
 		client.db("Contacts").collection("contact").find({}).toArray( (err, result) => {
 			if (err) throw err;
-			contacts = result;
-			console.log("fetched");
+            contacts = result;
 		})
 	})
-    
+
     return res.json(contacts);
 });
 
@@ -74,10 +61,18 @@ app.get('/contacts/:id', (req, res) => {
 		return res.status(400).json({error: "Invalid parameter" });
 	}
 	
-	const contact = contacts.find(contact => contact.id === id);
-	
+	client.connect(err => {
 
-	res.json(contact)
+		const database = client.db("Contacts");
+		const cont = database.collection("contact");
+
+		cont.findOne({id: id}, (err, result) => {
+			if (err) throw err;
+			res.json(result)
+		});
+
+	});
+
 });
 
 // виждане на информация за потребител
@@ -87,22 +82,22 @@ app.get('/contactsSearch/:phone', (req, res) => {
 	if(!phone){
 		return res.status(400).json({error: "Invalid parameter" });
 	}
-	
-	const contact = contacts.find(contact => contact.phones.find(currPhone => currPhone.phone == phone));
-	
-	console.log(contact.email);
 
-	res.json(contact)
+    client.connect(err => {
+		client.db("Contacts").collection("contact").findOne({phones: {$elemMatch: { phone: phone }}}, (err, result) => {
+			if (err) throw err;
+			res.json(result);
+			console.log("fetchedContact");
+		});
+	});
+
 });
 
 // добавяне на нов потребител upload.single('myFile')
 app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 
 	// console.log(req.file.filename, req.body);
-
-
-	
-    const firstName = req.body.firstname;
+	const firstName = req.body.firstname;
 	const lastName = req.body.lastname;
 	const address = req.body.address;
 	const email = req.body.email;
@@ -132,34 +127,23 @@ app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 	 	return res.status(400).json(validation);
 	}
 
+	const phoneNumber = {
+		"type": "мобилен",
+		"phone": phone
+	}
+
 
 	client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
 		if ( err ) throw err;
 		console.log("insered");
 	})
 
+	client.db("Contacts").collection("contact").updateOne({id: Id}, { $push: { phones: phoneNumber } }, (err, res) => {
+		if ( err ) throw err;
+		console.log("added phone number");
+	})
 
-	// const newContact = {
-	// 	"id": Id,
-	// 	"firstname": firstname,
-	// 	"lastname": lastname,
-	// 	"address": address,
-	// 	"email": email,
-	// 	"phones": [{"type": "мобилен",
-	// 				"phone": phone}],
-	// 	"avatar": avatar
-	// }
-
-	// client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
-	// 	if ( err ) throw err;
-	// 	console.log("insered");
-	// })
-	
-	//contacts.push(newContact);
-
-	//writeData();
-
-	res.send(contacts);
+	res.status(200);
 	
 });
 
@@ -173,19 +157,16 @@ app.patch('/contactsPhone/:id', (req, res) => {
 	if(!Id || !typeNum || !anotherPhoneNum){
 		return res.status(400).json({error: "Invalid data" });
 	}
-	
-	let contact = contacts.find(user => user.id === Id);
-
-	console.log(contact);
 
 	let newNum = {
 		"type": typeNum,
 		"phone": anotherPhoneNum
 	}
 
-	contact.phones.push(newNum);
-	
-	writeData();
+	client.db("Contacts").collection("contact").updateOne({id: Id}, { $push: { phones: newNum } }, (err, res) => {
+		if ( err ) throw err;
+		console.log("added phone number");
+	})
 
 });
 
@@ -199,14 +180,10 @@ app.delete('/contactsPhone/:id', (req, res) => {
 		return res.status(400).json({error: "Invalid data" });
 	}
 	
-	let contact = contacts.find(user => user.id === Id);
-
-
-	contact.phones = contact.phones.filter(number => number.phone != anotherPhoneNum);
-
-	console.log(contact.phones);
-
-	writeData();
+	client.db("Contacts").collection("contact").updateOne({id: Id}, { $pull: { phones: { phone: anotherPhoneNum } } }, (err, res) => {
+		if ( err ) throw err;
+		console.log("removed phone number");
+	})
 
 	res.send(contacts);
 
@@ -221,44 +198,17 @@ app.delete('/contacts/:id', (req, res) => {
 		return res.status(400).json({error: "Invalid parameter"});
 	}
 	
-	contacts = contacts.filter(contact => contact.id !== Id);
-
-	writeData();
+	client.connect(err => {
+		client.db("Contacts").collection("contact").deleteOne({id: Id}, (err, result) => {
+			if (err) throw err;
+			contact = result;
+			console.log("fetchedContact");
+		})
+	})
 	
-	res.send(contacts);
+	res.status(200);
 	
 });
-
-function writeData(){
-
-    const data = JSON.stringify(contacts);
-
-    //console.log(data);
-  
-    fs.writeFile('./database/contacts.json', data, (err) => {
-        if(err) { // C:\Users\dancho\Desktop\web\project\phone book - all\backend\database\contacts.json
-            throw err;
-        }
-    });
-
-}
-
-
-function readData(){
-
-    fs.readFile('./database/contacts.json', 'utf-8', (err, data) => {
-        if (err) {
-            throw err;
-        }
-  
-        // parse JSON object
-        const contact = JSON.parse(data.toString());
-		//console.log(contact);
-        contacts = contact;
-  
-    });
-
-}
 
 // слушаме на порт 3000 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

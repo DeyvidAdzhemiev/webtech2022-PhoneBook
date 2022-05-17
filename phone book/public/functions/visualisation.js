@@ -5,7 +5,6 @@ function showhideClass(classNametoHide, classNametoShow, funct) {
         document.getElementsByClassName(classNametoShow)[0].style.display = "block";
         document.getElementsByClassName(classNametoHide)[0].style.display = "none";
         funct;
-        
     }
 
 }
@@ -23,7 +22,8 @@ function showInfoFromSearch(phone) {
 // скрива информацията за контакта
 function hideInfo() {
     document.getElementsByClassName("menu")[0].style.display = "block";
-        document.getElementsByClassName("main")[0].style.display = "none";
+    document.getElementsByClassName("main")[0].style.display = "none";
+    location.reload();
 }
 
 // показва и скрива формата за регистрация
@@ -110,6 +110,45 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
   }
+
+  // проверява за валиден email и телефонен номер
+function check(inpEmail, inpPhone) {
+
+    inpEmail.addEventListener("input", function(e) {
+
+        val = this.value;
+        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let message = document.getElementById('message');
+        
+        if(!val.match(pattern)) {   
+            message.textContent = "email is not correct";
+            document.getElementById('email').style.border = "1px solid red";
+        } else {
+            document.getElementById('email').style.border = "1px solid black";
+            message.textContent = "";
+        }
+
+    });
+
+
+    inpPhone.addEventListener("input", function(e) {
+
+        val = this.value;
+        let pattern = /^\d{9}$/;
+        let message = document.getElementById('message');
+        
+        if(!val.match(pattern)) {   
+            message.textContent = "phone is not correct";
+            document.getElementById('phone').style.border = "1px solid red";
+        } else {
+            document.getElementById('phone').style.border = "1px solid black";
+            message.textContent = "";
+        }
+
+    });
+
+
+}
 
 autocomplete(document.getElementById("searchItem"), numbers);
 check(document.getElementById("email"), document.getElementById("phone"));
