@@ -69,7 +69,7 @@ function newContact(req) {
 
 	client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
 		if ( err ) throw err;
-		console.log("insered");
+		console.log("inserted");
 	})
 
 }
