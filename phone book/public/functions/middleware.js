@@ -1,3 +1,5 @@
+// const { encrypt, decrypt } = require('../../backend/crypt');
+
 // изквиква контактите ,за да се покажат
 document.addEventListener('DOMContentLoaded', () => {
     getItems();
@@ -73,8 +75,10 @@ function getItems() {
             if (listItems && listItems.length !== 0) {
                 listItems.map(item => {
                     const li = document.createElement('li');
-                    const button = createButton(item.firstName + " " + item.lastName, 'showInfo(`'+ item.id +'`)');
+                    const button = createButton(item.firstName + " " + item.lastName, 'showInfo(`'+ btoa(item.id) +'`)');
                     const image = createImage('image', './images/upload/' + item.avatar);
+
+                    //encrypt(item.id);
 
                     li.appendChild(image);
                     li.appendChild(button);
@@ -92,7 +96,7 @@ function getItems() {
 
 // middleware за показване на информацията на контактите
 function getInfoContact(id) {
-    fetch('http://localhost:3000/contacts/' + id)
+    fetch('http://localhost:3000/contacts/' + atob(id))
         .then((response) => response.json())
         .then((listContacts) => {
             if (listContacts && listContacts.length !== 0) {
@@ -114,15 +118,15 @@ function getInfoContact(id) {
                 }
 
                 // създаване на нови бутони
-                const buttonAdd = createButton('', 'addNumb(`'+ listContacts.id +'`)');
+                const buttonAdd = createButton('', 'addNumb(`'+ btoa(listContacts.id) +'`)');
                 const imageAdd = createImage('imagebtn', './images/add.png');
                 buttonAdd.appendChild(imageAdd);
 
-                const buttonRemove = createButton('', 'removeNumb(`'+ listContacts.id +'`)');
+                const buttonRemove = createButton('', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
                 const imageRem = createImage('imagebtn', './images/delBtn.png');
                 buttonRemove.appendChild(imageRem);
 
-                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ listContacts.id +'`)');
+                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ btoa(listContacts.id) +'`)');
 
                 document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
 
@@ -156,15 +160,15 @@ function getInfoContactSearch(phone) {
                 }
 
                 // създаване на нови бутони
-                const buttonAdd = createButton('', 'addNumb(`'+ listContacts.id +'`)');
+                const buttonAdd = createButton('', 'addNumb(`'+ btoa(listContacts.id) +'`)');
                 const imageAdd = createImage('imagebtn', './images/add.png');
                 buttonAdd.appendChild(imageAdd);
 
-                const buttonRemove = createButton('', 'removeNumb(`'+ listContacts.id +'`)');
+                const buttonRemove = createButton('', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
                 const imageRem = createImage('imagebtn', './images/delBtn.png');
                 buttonRemove.appendChild(imageRem);
 
-                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ listContacts.id +'`)');
+                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ btoa(listContacts.id) +'`)');
 
                 document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
 
@@ -225,7 +229,7 @@ function submitAtnoherPhone(id){
     //const typenumber = "dancho";
     //const phoneNumber = "8981234124";
 
-    fetch('http://localhost:3000/contactsPhone/' + id, {
+    fetch('http://localhost:3000/contactsPhone/' + atob(id), {
         method: 'PATCH',
         body: JSON.stringify({  type: typenumber,
                                 phone: phoneNumber }),
@@ -245,7 +249,7 @@ function removePhoneNumber(id){
     const phoneNumber = document.getElementById("phoneNumbRem").value;
     //const phoneNumber = "8981234124";
 
-    fetch('http://localhost:3000/contactsPhone/' + id, {
+    fetch('http://localhost:3000/contactsPhone/' + atob(id), {
         method: 'DELETE',
         body: JSON.stringify({ phone: phoneNumber }),
         headers: new Headers({
@@ -260,7 +264,7 @@ function removePhoneNumber(id){
 // премахване на нов телефонен номер
 function removeContactById(id){
 
-    fetch('http://localhost:3000/contacts/' + id, {
+    fetch('http://localhost:3000/contacts/' + atob(id), {
         method: 'DELETE',
         headers: new Headers({
             'Content-Type': 'application/json'
