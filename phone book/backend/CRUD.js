@@ -1,37 +1,57 @@
 var userModel = require('./models/Contact');
 const {MongoClient} = require('mongodb');
+const mongoose = require('mongoose');
 const Uuid = require('uuid');
+require('dotenv').config();
 
-const client = new MongoClient("mongodb+srv://webtech2022:webtech2022@cluster0.t7xdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+// const client = new MongoClient("mongodb+srv://webtech2022:webtech2022@cluster0.t7xdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+const client = new MongoClient(process.env.DBCONNECTION);
+
+function getContacts() {
+
+	return new Promise(function(resolve, reject){
+		client.connect(err => {
+			client.db("Contacts").collection("contact").find({}).toArray( (err, result) => {
+				if (err) throw err;
+				resolve(result);
+
+			});
+		});
+	});
+
+}
 
 function getContact(id) {
 
-    let contact;
+	return new Promise(function(resolve, reject){
+		client.connect(err => {
 
-    client.connect(err => {
-		client.db("Contacts").collection("contact").findOne({}, { projection: { id: id}}).toArray( (err, result) => {
-			if (err) throw err;
-			contact = result;
-			console.log("fetchedContact");
-		})
-	})
+			const database = client.db("Contacts");
+			const cont = database.collection("contact");
 
-    return contact;
+			cont.findOne({id: id}, (err, result) => {
+				if (err) throw err;
+				resolve(result);
+			});
+
+		});
+	});
+
 }
 
 function getContactByPhone(phone) {
 
-    let contact;
+	return new Promise(function(resolve, reject){
+		client.connect(err => {
+			client.db("Contacts").collection("contact").findOne({phones: {$elemMatch: { phone: phone }}}, (err, result) => {
+				if (err) throw err;
+				console.log("fetchedContact");
+				resolve(result);
 
-    client.connect(err => {
-		client.db("Contacts").collection("contact").find({phones: {$elemMatch: { phone: phone }}}, (err, result) => {
-			if (err) throw err;
-			contact = result;
-			console.log("fetchedContact");
-		})
-	})
+			});
+		});
+	});
 
-    return contact;
 }
 
 function newContact(req) {
@@ -66,13 +86,60 @@ function newContact(req) {
 	 	return res.status(400).json(validation);
 	}
 
+	const phoneNumber = {
+		"type": "мобилен",
+		"phone": phone
+	}
 
-	client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
-		if ( err ) throw err;
-		console.log("insered");
-	})
+	client.connect(err => {
+		client.db("Contacts").collection("contact").insertOne(newContact, (err, res) => {
+			if ( err ) throw err;
+			console.log("insered");
+		})
+
+		client.db("Contacts").collection("contact").updateOne({id: Id}, { $push: { phones: phoneNumber } }, (err, res) => {
+			if ( err ) throw err;
+			console.log("added phone number");
+		})
+
+	});
 
 }
 
 
-module.exports = { getContact:getContact, newContact:newContact, getContactByPhone:getContactByPhone }
+function addNewPhoneNumber(Id, newNum) {
+
+	client.db("Contacts").collection("contact").updateOne({id: Id}, { $push: { phones: newNum } }, (err, res) => {
+		if ( err ) throw err;
+		console.log("added phone number");
+	})
+
+}
+
+function removePhoneNumber(Id, anotherPhoneNum) {
+
+	client.db("Contacts").collection("contact").updateOne({id: Id}, { $pull: { phones: { phone: anotherPhoneNum } } }, (err, res) => {
+		if ( err ) throw err;
+		console.log("removed phone number");
+	})
+
+}
+
+function removeContact(Id) {
+
+	return new Promise(function(resolve, reject){
+		client.connect(err => {
+			client.db("Contacts").collection("contact").deleteOne({id: Id}, (err, result) => {
+				if (err) throw err;
+				resolve(result);
+				console.log("fetchedContact");
+			});
+		});
+	});
+
+}
+
+
+
+module.exports = { getContacts:getContacts, getContact:getContact, newContact:newContact, getContactByPhone:getContactByPhone, 
+	               addNewPhoneNumber:addNewPhoneNumber, removePhoneNumber: removePhoneNumber, removeContact:removeContact }

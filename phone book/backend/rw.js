@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function writeData(){
+function writeData(contacts){
 
     const data = JSON.stringify(contacts);
 
@@ -17,16 +17,18 @@ function writeData(){
 
 function readData(){
 
-    fs.readFile('./database/contacts.json', 'utf-8', (err, data) => {
-        if (err) {
-            throw err;
-        }
-  
-        // parse JSON object
-        const contact = JSON.parse(data.toString());
-		//console.log(contact);
-        contacts = contact;
-  
+    return new Promise(function(resolve, reject){
+        fs.readFile('./database/contacts.json', 'utf-8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+    
+            // parse JSON object
+            const contact = JSON.parse(data.toString());
+            //console.log(contact);
+            resolve(contact)
+    
+        });
     });
 
 }
