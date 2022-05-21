@@ -68,14 +68,18 @@ function newContact(req) {
 	
 	let Id = Uuid.v4();
 
+	const phoneNumber = {
+		"type": "мобилен",
+		"phone": phone
+	}
+
 	const newContact = new userModel({
 		id: Id,
 		firstName: firstName,
 		lastName: lastName,
 		address: address,
 		email: email,
-		phones: [{"type": "мобилен",
-					"phone": phone}],
+		phones: [phoneNumber],
 		avatar: avatar
 	});
 
@@ -83,11 +87,6 @@ function newContact(req) {
 
 	if(validation) {
 	 	return res.status(400).json(validation);
-	}
-
-	const phoneNumber = {
-		"type": "мобилен",
-		"phone": phone
 	}
 
 	client.connect(err => {

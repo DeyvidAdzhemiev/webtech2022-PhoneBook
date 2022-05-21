@@ -1,5 +1,7 @@
 // const { encrypt, decrypt } = require('../../backend/crypt');
 
+let numbers = [];
+
 // изквиква контактите ,за да се покажат
 document.addEventListener('DOMContentLoaded', () => {
     getItems();
@@ -36,6 +38,11 @@ function createMetaData(txtF, txtL, txtAddress, txtEml) {
     document.getElementById('eml').textContent = txtEml;
 }
 
+function addToSearchContact(phone) {
+
+    numbers.push(phone);
+}
+
 function addAllNumbers(phones) {
     // зачисване на стари номера
     var olddata = document.getElementById('PhoneNumbers').lastChild;
@@ -67,8 +74,6 @@ function addAllNumbers(phones) {
 
 }
 
-let numbers = ["1", "2", "3"];
-
 // middleware за показване на контактите
 function getItems() {
     fetch('http://localhost:3000/contacts')
@@ -80,7 +85,7 @@ function getItems() {
                     const button = createButton(item.firstName + " " + item.lastName, 'showInfo(`'+ btoa(item.id) +'`)');
                     const image = createImage('image', './images/upload/' + item.avatar);
 
-                    numbers.push(1);
+                    addToSearchContact(item.phones.phone);
 
                     li.appendChild(image);
                     li.appendChild(button);

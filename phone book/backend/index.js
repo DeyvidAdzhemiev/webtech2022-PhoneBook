@@ -11,8 +11,9 @@ const { getContacts, getContact, newContact, getContactByPhone, addNewPhoneNumbe
 
 const client = new MongoClient(process.env.DBCONNECTION);
 
-// app.use(express.static(__dirname + '/public'));
-app.use(express.static('C:/Users/dancho/Desktop/web/project/phone book - all/public'));
+// визуализиране на начална страница със списъка с контакти
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/contacts', express.static(path.join(__dirname, '..', 'public/images/upload')));
 app.use(express.json());
 
 let contacts = [];
@@ -29,13 +30,6 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-
-// визуализиране на начална страница със списъка с контакти
-app.get('/', (req, res) => {
-
-    // res.sendFile(path.join(__dirname + '/index.html'))
-    return res.sendFile(path.join('C:/Users/dancho/Desktop/web/project/phone book/phone book - all/public/index.html'))
-});
 
 app.get('/contacts', (req, res) => {
     
@@ -86,7 +80,7 @@ app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 	// console.log(req.file.filename, req.body);
 	newContact(req);
 
-	res.status(200);
+	res.redirect('/');
 	
 });
 
