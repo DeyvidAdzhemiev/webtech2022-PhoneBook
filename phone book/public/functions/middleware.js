@@ -48,10 +48,10 @@ function addAllNumbers(phones) {
     // зачисване на стари номера
     var olddata = document.getElementById('PhoneNumbers').lastChild;
 
-    while(olddata != null) {
-        document.getElementById('PhoneNumbers').removeChild(olddata);
-        olddata=document.getElementById('PhoneNumbers').lastChild;
-    }
+    // while(olddata != null) {
+    //     document.getElementById('PhoneNumbers').removeChild(olddata);
+    //     olddata=document.getElementById('PhoneNumbers').lastChild;
+    // }
 
     // записване на нови номера
     const NumberOfList1 = document.createElement('tr');
@@ -128,10 +128,10 @@ function getInfoContact(id) {
                 // зачистване на стари бутони
                 var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
 
-                while(olddataBtn != null) {
-                    document.getElementById('buttonsForAnotherPhones').removeChild(olddataBtn);
-                    olddataBtn=document.getElementById('buttonsForAnotherPhones').lastChild;
-                }
+                // while(olddataBtn != null) {
+                //     document.getElementById('buttonsForAnotherPhones').removeChild(olddataBtn);
+                //     olddataBtn=document.getElementById('buttonsForAnotherPhones').lastChild;
+                // }
 
                 // създаване на нови бутони
                 const buttonAdd = createButton('', 'addNumb(`'+ btoa(listContacts.id) +'`)');
@@ -197,47 +197,47 @@ function getInfoContactSearch(phone) {
 }
 
 // регистиране на нов
-function submitUser(){
+// function submitUser(){
 
-    const items = Array.from(
-        document.querySelector('ul').childNodes).map(li => li.textContent);
+//     const items = Array.from(
+//         document.querySelector('ul').childNodes).map(li => li.textContent);
 
-        const firstnameUser = document.getElementById("firstname").value;
-        const lastnameUser = document.getElementById("lastname").value;
-        const addressUser = document.getElementById("address").value;
-        const emailUser = document.getElementById("email").value;
-        const phoneUser = document.getElementById("phone").value;
+//         const firstnameUser = document.getElementById("firstname").value;
+//         const lastnameUser = document.getElementById("lastname").value;
+//         const addressUser = document.getElementById("address").value;
+//         const emailUser = document.getElementById("email").value;
+//         const phoneUser = document.getElementById("phone").value;
 
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let phoneNumberPattern = /^\d{9}$/;
+//         let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//         let phoneNumberPattern = /^\d{9}$/;
 
-        if(emailUser.match(pattern) && phoneUser.match(phoneNumberPattern)) {   
+//         if(emailUser.match(pattern) && phoneUser.match(phoneNumberPattern)) {   
 
-            fetch('http://localhost:3000/contacts', {
-            method: 'POST',
-            body: JSON.stringify({ firstName: firstnameUser,
-                                    lastName: lastnameUser,
-                                    address: addressUser,
-                                    email: emailUser,
-                                    phone: [{"type": "мобилен",
-                                            "phone": phoneUser}]}),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            })
-            .then((response) => response.json())
-            .then((result) => console.log(result))
+//             fetch('http://localhost:3000/contacts', {
+//             method: 'POST',
+//             body: JSON.stringify({ firstName: firstnameUser,
+//                                     lastName: lastnameUser,
+//                                     address: addressUser,
+//                                     email: emailUser,
+//                                     phone: [{"type": "мобилен",
+//                                             "phone": phoneUser}]}),
+//                 headers: new Headers({
+//                     'Content-Type': 'application/json'
+//                 })
+//             })
+//             .then((response) => response.json())
+//             .then((result) => console.log(result))
 
-            document.location.reload();
+//             document.location.reload();
 
-        } else {
+//         } else {
 
-            let message = document.getElementById('message');
-            message.textContent = "data is not correct";
+//             let message = document.getElementById('message');
+//             message.textContent = "data is not correct";
 
-        }
+//         }
 
-}
+// }
 
 // добавяне на нов телефонен номер
 function submitAtnoherPhone(id){
