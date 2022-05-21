@@ -1,6 +1,5 @@
 var userModel = require('./models/Contact');
 const {MongoClient} = require('mongodb');
-const mongoose = require('mongoose');
 const Uuid = require('uuid');
 require('dotenv').config();
 
