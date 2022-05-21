@@ -41,6 +41,7 @@ function createMetaData(txtF, txtL, txtAddress, txtEml) {
 function addToSearchContact(phone) {
 
     numbers.push(phone);
+
 }
 
 function addAllNumbers(phones) {
@@ -85,7 +86,15 @@ function getItems() {
                     const button = createButton(item.firstName + " " + item.lastName, 'showInfo(`'+ btoa(item.id) +'`)');
                     const image = createImage('image', './images/upload/' + item.avatar);
 
-                    addToSearchContact(item.phones.phone);
+                    let listPhones = item.phones;
+
+                    if(listPhones != undefined){
+                        if(listPhones.length != 0){
+                            for(let i = 0; i < listPhones.length; i++ ){
+                                addToSearchContact(item.phones[i].phone);
+                            }
+                        }
+                    }
 
                     li.appendChild(image);
                     li.appendChild(button);
@@ -137,7 +146,9 @@ function getInfoContact(id) {
 
                 document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
 
-                addAllNumbers(listContacts.phones);
+                if(listContacts.phones != undefined){
+                    addAllNumbers(listContacts.phones);
+                }
 
             }
         })
