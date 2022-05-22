@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		match: [/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'Invalid email']
 	},
-	phone: {
+	phones: {
         type: Array,
         required: true,
     },
@@ -33,4 +33,4 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Contacts", userSchema);
+module.exports = mongoose.model("contact", userSchema, "contacts");

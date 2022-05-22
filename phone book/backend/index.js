@@ -1,15 +1,12 @@
 const express = require('express'); // get express function
 const path = require('path'); // to join paths according to your OS (normalize)
 const multer = require("multer");
-const {MongoClient} = require('mongodb');
 require('dotenv').config();
 
 const app = express(); // create application from express
 const port = process.env.PORT;
 
 const { getContacts, getContact, newContact, getContactByPhone, addNewPhoneNumber, removePhoneNumber, removeContact } = require('./CRUD');
-
-const client = new MongoClient(process.env.DBCONNECTION);
 
 // визуализиране на начална страница със списъка с контакти
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -140,4 +137,4 @@ app.delete('/contacts/:id', (req, res) => {
 });
 
 // слушаме на порт 3000 
-app.listen(port, client.connect(err => { console.log(`Server listening on port ${port}`)}));
+app.listen(port, () => { console.log(`Server listening on port ${port}`)});
