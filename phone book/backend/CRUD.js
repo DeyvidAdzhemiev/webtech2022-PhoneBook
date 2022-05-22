@@ -45,14 +45,20 @@ function getContactByPhone(phone) {
 
 }
 
-function newContact(req) {
+function newContact(req, res) {
 
     const firstName = req.body.firstname;
 	const lastName = req.body.lastname;
 	const address = req.body.address;
 	const email = req.body.email;
 	const phone = req.body.phone;
-	const avatar = req.file.filename;
+	let avatar;
+	if(!req.file) {
+		avatar = "unknown-person-icon.jpg";
+	} else {
+		avatar = req.file.filename;
+	}
+
 
 	if(!firstName || !lastName || !address || !email || !phone || !avatar) {
 		return res.status(400).json({error: "Invalid data" });
@@ -81,14 +87,17 @@ function newContact(req) {
 	 	return res.status(400).json(validation);
 	}
 
-	Contacts.insertOne(newContact, function(err, result) {
-		if (err) throw err;
-		console.log("insered");		
-	});
+	newContact.save((err, doc) => {
+		if (!err) {
+			res.redirect('/');
+		} else {
+			console.log('Error during record insertion : ' + err);
+		}
+  });
 
 	Contacts.updateOne({id: Id}, { $push: { phones: phoneNumber } }, function(err, result) {
 		if (err) throw err;
-		console.log("insered");		
+		console.log("inserted");		
 	});
 
 }

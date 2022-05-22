@@ -86,7 +86,41 @@
             </div>
           </form> -->
 
+          <div class="title">Информация за контакт</div>
         <form action="/contacts" method="post" enctype="multipart/form-data">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="detail">Име</span>
+                    <input type="text" id="firstname" name="firstname">
+                </div>
+                <div class="input-box">
+                    <span class="detail">Фамилия</span>
+                    <input type="text" id="lastname" name="lastname">
+                </div>
+                <div class="input-box">
+                    <span class="detail">Адрес</span>
+                    <input type="text" id="address" name="address">
+                </div>
+                <div class="input-box">
+                    <span class="detail">Имейл</span>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div class="input-box">
+                    <span class="detail">Телефонен номер</span>
+                    <input type="text" id="phone" name="phone">
+                </div>
+                <div class="upload_box">
+                    <span class="detail">Изберете снимка</span>
+                    <input type="file" name="uploaded_file">
+                </div>
+                <span id="message"></span>
+                <div class="button">
+                    <input type="submit" value="Завърши">
+                </div>
+            </div>
+        </form>
+
+        <!-- <form action="/contacts" method="post" enctype="multipart/form-data">
             <label>Име</label>
             <input type="text" id="firstname" name="firstname">
             <label>Фамилия</label>
@@ -102,9 +136,9 @@
             <input type="file" name="uploaded_file">
 
             <input type="submit" value="Get me the stats!">
-            <!-- <button type="submit" onclick="submitUser()">Добави</button -->
+            <button type="submit" onclick="submitUser()">Добави</button
 
-        </form>
+        </form> -->
     </div>
 
 </div>

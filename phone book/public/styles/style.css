@@ -3,9 +3,12 @@
 }
   
 body {
-    background-color:aquamarine;
-    display: flex;
-    justify-content: center;
+     overflow: visible !important;
+  background: -webkit-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -moz-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -ms-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -o-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: linear-gradient(45deg, #085078 10%, #85d8ce 90%);
 }
   
 .container {
@@ -22,7 +25,7 @@ body {
   
 /* navbar */
 .nav {
-    background-color: rgb(57, 166, 240);
+    background-color: rgb(173, 205, 214);
     position:relative;
     width: 80%;
     height: 65px;
@@ -101,7 +104,7 @@ body {
 }
   
 .menu {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgb(173, 205, 214);
     position: relative;
     margin: 10px;
     float: left;
@@ -246,9 +249,9 @@ body {
 .register {
     position: relative;
     top: 15%;
-    left: 29%;
+    /* left: 50%; */
     background-color: rgba(255, 255, 255, 0.6);
-    width: 600px;
+    width: 800px;
     height: fit-content;
     display: none;
     justify-content: center;
@@ -256,8 +259,90 @@ body {
     text-align: center;
     align-items: center;
 }
+    .register .title {
+        font-size: 25px;
+        font-family: serif;
+        font-weight: 800;
+        position: relative;
+    }
 
-.register label {
+    .register form .user-details{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 20px 0 12px 0;
+    }
+
+    form .user-details .input-box{
+        margin-bottom: 15px;
+        width: calc(100% / 2 - 20px);
+    }
+
+    .user-details .input-box .details{
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .user-details .input-box input{
+        height: 45px;
+        width: 95%;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        font-size: 16px;
+        border-bottom-width: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .user-details .input-box input:focus,
+    .user-details .input-box input:valid{
+        border-color: rgb(45, 75, 114);
+    }
+
+    form .button{
+        height: 30px;
+        width: 95%;
+        padding-left: 40px;
+    }
+
+    form .button input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        color: #fff;
+        border: none;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        background: rgb(43, 135, 160);
+    }
+
+    form .button input:hover{
+        background: linear-gradient(-135e, #fff, #085078);
+    }
+    
+    @media (max-width: 584px){
+        .register{
+            max-width: 100%;
+        }
+        form .user-details .input-box{
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .register form .user-details{
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+        .user-details::-webkit-scrollbar{
+            width: 0;
+        }
+    }
+
+
+/* .register label {
     font-style: italic;
     font-size: medium;
     margin: 10px;
@@ -280,7 +365,7 @@ body {
 .register button:hover{
     cursor: pointer;
     border: 1px solid black;
-}
+} */
 
 
 /* autocomplete */

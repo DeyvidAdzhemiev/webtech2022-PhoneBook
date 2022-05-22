@@ -75,7 +75,7 @@ app.get('/contactsSearch/:phone', (req, res) => {
 app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 
 	// console.log(req.file.filename, req.body);
-	newContact(req);
+	newContact(req, res);
 
 	res.redirect('/');
 	
