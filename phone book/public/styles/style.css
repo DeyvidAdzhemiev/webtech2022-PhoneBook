@@ -163,7 +163,7 @@ body {
   
   /* information about contact */
 .main {
-    background-color: rgb(147, 99, 242);
+    background-color: rgb(173, 205, 214);
     position: relative;
     left: 0%;
     text-align: left;
@@ -340,32 +340,6 @@ body {
             width: 0;
         }
     }
-
-
-/* .register label {
-    font-style: italic;
-    font-size: medium;
-    margin: 10px;
-}
-
-.register input {
-    width: 200px;
-    height: 25px;
-    padding: 5px;
-    margin: 0px 50px;
-}
-
-.register button {
-    background: none;
-    border: none;
-    margin: 20px;
-    padding: 5px;
-}
-
-.register button:hover{
-    cursor: pointer;
-    border: 1px solid black;
-} */
 
 
 /* autocomplete */
