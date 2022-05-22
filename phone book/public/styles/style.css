@@ -163,28 +163,28 @@ body {
   
   /* information about contact */
 .main {
-    background-color: rgb(147, 99, 242);
+    background-color: rgb(173, 205, 214);
     position: relative;
     left: 0%;
-    text-align: left;
-    float: left;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     border: 3px solid white;
     display: none;
     padding: 20px;
     width: 60%;
     height: fit-content;
-
+    font-size: large;
 }
   
 .personalInfo {
-    position: absolute;
-    left: 300px;
-    top: 15%;
+    position: relative;
+
 }
   
 .personalInfo img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50px;
 }
   
@@ -197,6 +197,13 @@ body {
 .backBtn {
     position: absolute;
     left: 85%;
+    width: 50px;
+    height: 50px;
+}
+
+.backBtn button {
+    width: 50px;
+    height: 50px;
 }
 
 .backBtn img {
@@ -204,10 +211,60 @@ body {
     height: 30px;
 }
 
+.eml {
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.eml img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+.addr{
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.addr img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
 #imagebtn {
     width: 25px; 
     height: 25px; 
     border-radius: 50px;
+    margin: 0px 10px;
+}
+
+#frstName {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#buttonsForAnotherPhones {
+    position: absolute;
+    left: 70%;
+    top: 75%;
+    width: 230px;
+}
+
+#buttonsForAnotherPhone button {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#buttonsForAnotherPhone button img {
+    margin: 20px;
+    padding: 20px;
 }
 
 /* table with number phones */
@@ -217,8 +274,8 @@ body {
 
 .addNewNumber {
     position: absolute;
-    left: 60%;
-    top: 30%;
+    left: 65%;
+    top: 55%;
     display: none;
     justify-content: center;
     flex-wrap: wrap;
@@ -236,8 +293,8 @@ body {
 
 .removeNumber {
     position: absolute;
-    left: 60%;
-    top: 30%;
+    left: 65%;
+    top: 55%;
     display: none;
     justify-content: center;
     flex-wrap: wrap;
@@ -323,23 +380,6 @@ body {
     form .button input:hover{
         background: linear-gradient(-135e, #fff, #085078);
     }
-    
-    @media (max-width: 584px){
-        .register{
-            max-width: 100%;
-        }
-        form .user-details .input-box{
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        .register form .user-details{
-            max-height: 300px;
-            overflow-y: scroll;
-        }
-        .user-details::-webkit-scrollbar{
-            width: 0;
-        }
-    }
 
 
 /* .register label {
@@ -420,6 +460,18 @@ body {
         top: 10px;
     }
 
+    .search button {
+        position: absolute;
+        top: 5%;
+        left: 75%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .search button img {
+        display: block;
+    }
+
     .buttons {
         position: relative;
         left: 0%;
@@ -459,7 +511,7 @@ body {
     }
 
     .personalInfo {
-        left: 70%;
+        left: 0%;
     }
 
     .personalInfo img {
@@ -467,6 +519,74 @@ body {
         height: 80px;
     }
 
+    #buttonsForAnotherPhones {
+        position: absolute;
+        left: 80%;
+        top: 55%;
+        width: 100px;
+    }
+    
+    #buttonsForAnotherPhone button {
+        display: flex;
+        text-align: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    #buttonsForAnotherPhone button img {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .addNewNumber {
+        position: absolute;
+        left: 70%;
+        top: 40%;
+        display: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100px;
+    }
+    
+    .addNewNumber label {
+        margin: 5px;
+    }
+    
+    .addNewNumber input {
+        margin: 5px;
+        width: 100px;
+    }
+
+    .removeNumber {
+        position: absolute;
+        left: 70%;
+        top: 50%;
+        display: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100px;
+    }
+
+    .removeNumber input {
+        width: 100px;
+    }
+
+    .register{
+        max-width: 100%;
+    }
+    form .user-details .input-box{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .register form .user-details{
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+    .user-details::-webkit-scrollbar{
+        width: 0;
+    }
 
 
   }
@@ -527,6 +647,25 @@ body {
     .main {
         left: 0%;
         width: 70%;
+    }
+
+
+    #buttonsForAnotherPhones {
+        position: absolute;
+        left: 60%;
+        top: 75%;
+        width: 230px;
+    }
+    
+    #buttonsForAnotherPhone button {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    #buttonsForAnotherPhone button img {
+        margin: 20px;
+        padding: 20px;
     }
   
   

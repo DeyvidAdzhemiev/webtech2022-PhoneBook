@@ -32,8 +32,7 @@ function createTd(textContent) {
 }
 
 function createMetaData(txtF, txtL, txtAddress, txtEml) {
-    document.getElementById('frstName').textContent = txtF;
-    document.getElementById('lstName').textContent = txtL;
+    document.getElementById('frstName').textContent = txtF + "   " + txtL;
     document.getElementById('addrst').textContent = txtAddress;
     document.getElementById('eml').textContent = txtEml;
 }
@@ -47,11 +46,6 @@ function addToSearchContact(phone) {
 function addAllNumbers(phones) {
     // зачисване на стари номера
     var olddata = document.getElementById('PhoneNumbers').lastChild;
-
-    // while(olddata != null) {
-    //     document.getElementById('PhoneNumbers').removeChild(olddata);
-    //     olddata=document.getElementById('PhoneNumbers').lastChild;
-    // }
 
     // записване на нови номера
     const NumberOfList1 = document.createElement('tr');
@@ -118,33 +112,24 @@ function getInfoContact(id) {
             if (listContacts && listContacts.length !== 0) {
 
                 // мета данните
-                createMetaData("Първо име: " + listContacts.firstName, "Фамилия: " + listContacts.lastName
-                                ,"Адрес: " + listContacts.address, "Имейл:" + listContacts.email);
+                createMetaData(listContacts.firstName, listContacts.lastName
+                                ,listContacts.address, listContacts.email);
 
                 const image = createImage('', './images/upload/' + listContacts.avatar);
 
                 document.getElementsByClassName("personalInfo")[0].appendChild(image);
 
-                // зачистване на стари бутони
-                var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
-
-                // while(olddataBtn != null) {
-                //     document.getElementById('buttonsForAnotherPhones').removeChild(olddataBtn);
-                //     olddataBtn=document.getElementById('buttonsForAnotherPhones').lastChild;
-                // }
 
                 // създаване на нови бутони
-                const buttonAdd = createButton('', 'addNumb(`'+ btoa(listContacts.id) +'`)');
-                const imageAdd = createImage('imagebtn', './images/add.png');
-                buttonAdd.appendChild(imageAdd);
+                const buttonAdd = document.getElementById('addP');
+                buttonAdd.setAttribute('onclick', 'addNumb(`'+ btoa(listContacts.id) +'`)');
+                
+                const buttonRem = document.getElementById('remP');
+                buttonRem.setAttribute('onclick', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
 
-                const buttonRemove = createButton('', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
-                const imageRem = createImage('imagebtn', './images/delBtn.png');
-                buttonRemove.appendChild(imageRem);
+                const deleteUser = document.getElementById('remPer');
+                deleteUser.setAttribute('onclick', 'removeContact(`'+ btoa(listContacts.id) +'`)');
 
-                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ btoa(listContacts.id) +'`)');
-
-                document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
 
                 if(listContacts.phones != undefined){
                     addAllNumbers(listContacts.phones);
@@ -156,96 +141,49 @@ function getInfoContact(id) {
 
 // middleware за показване на информацията на контактите
 function getInfoContactSearch(phone) {
-    fetch('http://localhost:3000/contactsSearch/' + phone)
-        .then((response) => response.json())
-        .then((listContacts) => {
-            if (listContacts && listContacts.length !== 0) {
 
-                // мета данните
-                createMetaData("Първо име: " + listContacts.firstName, "Фамилия: " + listContacts.lastName
-                                ,"Адрес: " + listContacts.address, "Имейл:" + listContacts.email);
+    if(phone != null) {
 
-                const image = createImage('', './images/upload/' + listContacts.avatar);
+        fetch('http://localhost:3000/contactsSearch/' + phone)
+            .then((response) => response.json())
+            .then((listContacts) => {
+                if (listContacts && listContacts.length !== 0) {
 
-                document.getElementsByClassName("personalInfo")[0].appendChild(image);
+                    // мета данните
+                    createMetaData(listContacts.firstName, listContacts.lastName
+                        ,listContacts.address, listContacts.email);
 
-                // зачистване на стари бутони
-                var olddataBtn = document.getElementById('buttonsForAnotherPhones').lastChild;
+                    const image = createImage('', './images/upload/' + listContacts.avatar);
 
-                while(olddataBtn != null) {
-                    document.getElementById('buttonsForAnotherPhones').removeChild(olddataBtn);
-                    olddataBtn=document.getElementById('buttonsForAnotherPhones').lastChild;
+                    document.getElementsByClassName("personalInfo")[0].appendChild(image);
+
+
+                    // създаване на нови бутони
+                    const buttonAdd = document.getElementById('addP');
+                    buttonAdd.setAttribute('onclick', 'addNumb(`'+ btoa(listContacts.id) +'`)');
+                    
+                    const buttonRem = document.getElementById('remP');
+                    buttonRem.setAttribute('onclick', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
+
+                    const deleteUser = document.getElementById('remPer');
+                    deleteUser.setAttribute('onclick', 'removeContact(`'+ btoa(listContacts.id) +'`)');
+
+
+                    if(listContacts.phones != undefined){
+                        addAllNumbers(listContacts.phones);
+                    }
+                    
                 }
+            })
 
-                // създаване на нови бутони
-                const buttonAdd = createButton('', 'addNumb(`'+ btoa(listContacts.id) +'`)');
-                const imageAdd = createImage('imagebtn', './images/add.png');
-                buttonAdd.appendChild(imageAdd);
-
-                const buttonRemove = createButton('', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
-                const imageRem = createImage('imagebtn', './images/delBtn.png');
-                buttonRemove.appendChild(imageRem);
-
-                const deleteUser = createButton("Премахване на потребител", 'removeContact(`'+ btoa(listContacts.id) +'`)');
-
-                document.getElementById("buttonsForAnotherPhones").append(buttonAdd, buttonRemove, deleteUser);
-
-                addAllNumbers(listContacts.phones);
-                
-            }
-        })
+    }
 }
-
-// регистиране на нов
-// function submitUser(){
-
-//     const items = Array.from(
-//         document.querySelector('ul').childNodes).map(li => li.textContent);
-
-//         const firstnameUser = document.getElementById("firstname").value;
-//         const lastnameUser = document.getElementById("lastname").value;
-//         const addressUser = document.getElementById("address").value;
-//         const emailUser = document.getElementById("email").value;
-//         const phoneUser = document.getElementById("phone").value;
-
-//         let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//         let phoneNumberPattern = /^\d{9}$/;
-
-//         if(emailUser.match(pattern) && phoneUser.match(phoneNumberPattern)) {   
-
-//             fetch('http://localhost:3000/contacts', {
-//             method: 'POST',
-//             body: JSON.stringify({ firstName: firstnameUser,
-//                                     lastName: lastnameUser,
-//                                     address: addressUser,
-//                                     email: emailUser,
-//                                     phone: [{"type": "мобилен",
-//                                             "phone": phoneUser}]}),
-//                 headers: new Headers({
-//                     'Content-Type': 'application/json'
-//                 })
-//             })
-//             .then((response) => response.json())
-//             .then((result) => console.log(result))
-
-//             document.location.reload();
-
-//         } else {
-
-//             let message = document.getElementById('message');
-//             message.textContent = "data is not correct";
-
-//         }
-
-// }
 
 // добавяне на нов телефонен номер
 function submitAtnoherPhone(id){
 
     const typenumber = document.getElementById("typeNumb").value;
     const phoneNumber = document.getElementById("phoneNumbAdd").value;
-    //const typenumber = "dancho";
-    //const phoneNumber = "8981234124";
 
     fetch('http://localhost:3000/contactsPhone/' + atob(id), {
         method: 'PATCH',

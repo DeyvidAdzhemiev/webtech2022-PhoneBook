@@ -46,18 +46,27 @@
             <button onclick="hideInfo()"><img src="./images/back.png"></button>
         </div>
 
-        <div class="personalInfo"></div>
+        <div class="personalInfo">
 
-        <p id="frstName"> </p>
-        <p id="lstName"> </p>
-        <p id="addrst"> </p>
-        <p id="eml"> </p>
+            <p id="frstName"> </p>
+            <div class="eml">
+                <img src="./images/icons8-mail-50.png">
+                <p id="eml"> </p>
+            </div>
+            <div class="addr">
+                <img src="./images/home.png" style="width: 30px; height: 30px;">
+                <p id="addrst"> </p>
+            </div>
 
-        <div id="buttonsForAnotherPhones"></div>
+            <table id="PhoneNumbers"></table>
 
-        <table id="PhoneNumbers">
+            <div id="buttonsForAnotherPhones">
+                <button id="addP"><img id="imagebtn" src="./images/add.png">Добавяне на номер</button>
+                <button id="remP"><img id="imagebtn" src="./images/icons8-minus-50.png">Премахване на номер</button>
+                <button id="remPer"><img id="imagebtn" src="./images/icons8-xbox-x-50.png">Премахване на контакт</button>
+            </div>
 
-        </table>
+        </div>
 
         <div class="addNewNumber">
             <label>Име</label>

@@ -23,6 +23,7 @@ function showInfoFromSearch(phone) {
 function hideInfo() {
     document.getElementsByClassName("menu")[0].style.display = "block";
     document.getElementsByClassName("main")[0].style.display = "none";
+    console.log("da BOG");
     location.reload();
 }
 

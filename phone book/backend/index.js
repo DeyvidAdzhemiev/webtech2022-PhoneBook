@@ -60,7 +60,7 @@ app.get('/contacts/:id', (req, res) => {
 app.get('/contactsSearch/:phone', (req, res) => {
     let phone = req.params.phone;
 	
-	if(!phone){
+	if(!phone || phone.length == 0){
 		return res.status(400).json({error: "Invalid parameter" });
 	}
 
