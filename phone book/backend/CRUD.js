@@ -17,7 +17,7 @@ var Contacts = require('./models/Contact');
 function getContacts() {
 
 	return new Promise(function(resolve, reject){
-		Contacts.find({}, [],function(err, result) {
+		Contacts.find({}, [], function(err, result) {
 			resolve(result);
 		});
 	});
@@ -27,7 +27,7 @@ function getContacts() {
 function getContact(id) {
 
 	return new Promise(function(resolve, reject){
-		Contacts.findOne({id: id},function(err, result) {
+		Contacts.findOne({id: id}, function(err, result) {
 			resolve(result);
 		});
 	});
@@ -37,7 +37,7 @@ function getContact(id) {
 function getContactByPhone(phone) {
 
 	return new Promise(function(resolve, reject){
-		Contacts.findOne({phones: {$elemMatch: { phone: phone }}},function(err, result) {
+		Contacts.findOne({phones: {$elemMatch: { phone: phone }}}, function(err, result) {
 			if ( err ) throw err;
 			resolve(result);
 		});
@@ -105,7 +105,7 @@ function addNewPhoneNumber(Id, newNum) {
 
 function removePhoneNumber(Id, anotherPhoneNum) {
 
-	Contacts.updateOne({id: Id}, { $pull: { phones: { phone: anotherPhoneNum } } },function(err, result) {
+	Contacts.updateOne({id: Id}, { $pull: { phones: { phone: anotherPhoneNum } } }, function(err, result) {
 		if ( err ) throw err;
 		console.log("removed phone number");
 	});
@@ -116,7 +116,7 @@ function removeContact(Id) {
 
 
 	return new Promise(function(resolve, reject){
-		Contacts.deleteOne({id: Id},function(err, result) {
+		Contacts.deleteOne({id: Id}, function(err, result) {
 			if (err) throw err;
 			resolve(result);
 						
