@@ -492,13 +492,19 @@ body {
         display: block;
     }
 
+
     .menu {
         left: 0%;
-        width: 95%;
+        width: 90%;
     }
 
     .menu ul {
         margin: 10px 0px;
+        width: 90%;
+    }
+
+    .menu ul li {
+        width: 80%;
     }
     
     .register {

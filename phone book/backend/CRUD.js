@@ -88,17 +88,15 @@ function newContact(req, res) {
 	}
 
 	newContact.save((err, doc) => {
-		if (!err) {
-			res.redirect('/');
-		} else {
+		if (err) {
 			console.log('Error during record insertion : ' + err);
 		}
   });
 
-	Contacts.updateOne({id: Id}, { $push: { phones: phoneNumber } }, function(err, result) {
-		if (err) throw err;
-		console.log("inserted");		
-	});
+	// Contacts.updateOne({id: Id}, { $push: { phones: phoneNumber } }, function(err, result) {
+	// 	if (err) throw err;
+	// 	console.log("inserted");		
+	// });
 
 }
 
