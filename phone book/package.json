@@ -1,0 +1,32 @@
+{
+  "name": "phone-book",
+  "version": "1.0.0",
+  "description": "phonebook project webtech team4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./backend/index.js"
+  },
+  "keywords": [
+    "phone",
+    "book",
+    "express",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "deyvid viktor yordan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.3",
+    "fs": "0.0.1-security",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.3.4",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7",
+    "uuid": "^8.3.2"
+  }
+}
