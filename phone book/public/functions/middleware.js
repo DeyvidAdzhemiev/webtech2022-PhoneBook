@@ -151,10 +151,8 @@ function getInfoContactSearch(phone) {
                     createMetaData(listContacts.firstName, listContacts.lastName
                         ,listContacts.address, listContacts.email);
 
-                    const image = createImage('', './images/upload/' + listContacts.avatar);
-
-                    document.getElementsByClassName("personalInfo")[0].appendChild(image);
-
+                    const profilePic = document.getElementById('profileImg');
+                    profilePic.setAttribute('src', './images/upload/' + listContacts.avatar);
 
                     // създаване на нови бутони
                     const buttonAdd = document.getElementById('addP');
