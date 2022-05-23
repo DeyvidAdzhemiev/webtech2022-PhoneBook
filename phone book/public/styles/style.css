@@ -199,6 +199,7 @@ body {
     left: 85%;
     width: 50px;
     height: 50px;
+    bottom: 85%;
 }
 
 .backBtn button {
@@ -275,7 +276,7 @@ body {
 .addNewNumber {
     position: absolute;
     left: 65%;
-    top: 55%;
+    top: 40%;
     display: none;
     justify-content: center;
     flex-wrap: wrap;
@@ -293,7 +294,7 @@ body {
 
 .removeNumber {
     position: absolute;
-    left: 65%;
+    left: 15%;
     top: 55%;
     display: none;
     justify-content: center;
@@ -512,6 +513,13 @@ body {
 
     .personalInfo {
         left: 0%;
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #frstName {
+        padding: 10px;
     }
 
     .personalInfo img {
@@ -521,8 +529,8 @@ body {
 
     #buttonsForAnotherPhones {
         position: absolute;
-        left: 80%;
-        top: 55%;
+        left: 100%;
+        top: 30%;
         width: 100px;
     }
     
@@ -541,7 +549,7 @@ body {
     .addNewNumber {
         position: absolute;
         left: 70%;
-        top: 40%;
+        top: 10%;
         display: none;
         justify-content: center;
         flex-wrap: wrap;
@@ -560,8 +568,8 @@ body {
 
     .removeNumber {
         position: absolute;
-        left: 70%;
-        top: 50%;
+        left: 10%;
+        top: 30%;
         display: none;
         justify-content: center;
         flex-wrap: wrap;
@@ -586,6 +594,16 @@ body {
     }
     .user-details::-webkit-scrollbar{
         width: 0;
+    }
+
+    .eml img {
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+    }
+
+    #PhoneNumbers tr td {
+        padding: 0px;
     }
 
 
@@ -668,5 +686,41 @@ body {
         padding: 20px;
     }
   
+
+    .addNewNumber {
+        position: absolute;
+        left: 70%;
+        top: 30%;
+        display: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100px;
+    }
+    
+    .addNewNumber label {
+        margin: 5px;
+    }
+    
+    .addNewNumber input {
+        margin: 5px;
+        width: 100px;
+    }
+
+    .removeNumber {
+        position: absolute;
+        left: 10%;
+        top: 30%;
+        display: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100px;
+    }
+
+    .removeNumber input {
+        width: 100px;
+    }
+
   
   }

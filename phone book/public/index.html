@@ -21,7 +21,7 @@
                 <img id="gifHomeBtn" style="width: 30px; height: 30px;" src="./images/home.png" > Всички
             </button>
             <button id="addBtn" onclick="register()">
-                <a href="http://localhost:3000/newContact"></a>
+                <a href="http://130.204.187.170:3000/newContact"></a>
                 <img style="width: 30px; height: 30px;" src="./images/add.png" > Добави
             </button>
         </div>
@@ -42,11 +42,9 @@
 
     <div class="main">
 
-        <div class="backBtn">
-            <button onclick="hideInfo()"><img src="./images/back.png"></button>
-        </div>
-
         <div class="personalInfo">
+
+            <img id="profileImg" src="#">
 
             <p id="frstName"> </p>
             <div class="eml">
@@ -80,6 +78,10 @@
             <label>Телефонен номер</label>
             <input type="text" id="phoneNumbRem">
             <button id="removeAnotherNumber"> Премахни </button>
+        </div>
+
+        <div class="backBtn">
+            <button onclick="hideInfo()"><img src="./images/back.png"></button>
         </div>
 
     </div>

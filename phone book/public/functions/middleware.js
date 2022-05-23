@@ -71,7 +71,7 @@ function addAllNumbers(phones) {
 
 // middleware за показване на контактите
 function getItems() {
-    fetch('http://localhost:3000/contacts')
+    fetch('http://130.204.187.170:3000/contacts')
         .then((response) => response.json())
         .then((listItems) => {
             if (listItems && listItems.length !== 0) {
@@ -106,7 +106,7 @@ function getItems() {
 
 // middleware за показване на информацията на контактите
 function getInfoContact(id) {
-    fetch('http://localhost:3000/contacts/' + atob(id))
+    fetch('http://130.204.187.170:3000/contacts/' + atob(id))
         .then((response) => response.json())
         .then((listContacts) => {
             if (listContacts && listContacts.length !== 0) {
@@ -115,10 +115,8 @@ function getInfoContact(id) {
                 createMetaData(listContacts.firstName, listContacts.lastName
                                 ,listContacts.address, listContacts.email);
 
-                const image = createImage('', './images/upload/' + listContacts.avatar);
-
-                document.getElementsByClassName("personalInfo")[0].appendChild(image);
-
+                const profilePic = document.getElementById('profileImg');
+                profilePic.setAttribute('src', './images/upload/' + listContacts.avatar);
 
                 // създаване на нови бутони
                 const buttonAdd = document.getElementById('addP');
@@ -144,7 +142,7 @@ function getInfoContactSearch(phone) {
 
     if(phone != null) {
 
-        fetch('http://localhost:3000/contactsSearch/' + phone)
+        fetch('http://130.204.187.170:3000/contactsSearch/' + phone)
             .then((response) => response.json())
             .then((listContacts) => {
                 if (listContacts && listContacts.length !== 0) {
@@ -185,7 +183,7 @@ function submitAtnoherPhone(id){
     const typenumber = document.getElementById("typeNumb").value;
     const phoneNumber = document.getElementById("phoneNumbAdd").value;
 
-    fetch('http://localhost:3000/contactsPhone/' + atob(id), {
+    fetch('http://130.204.187.170:3000/contactsPhone/' + atob(id), {
         method: 'PATCH',
         body: JSON.stringify({  type: typenumber,
                                 phone: phoneNumber }),
@@ -205,7 +203,7 @@ function removePhoneNumber(id){
     const phoneNumber = document.getElementById("phoneNumbRem").value;
     //const phoneNumber = "8981234124";
 
-    fetch('http://localhost:3000/contactsPhone/' + atob(id), {
+    fetch('http://130.204.187.170:3000/contactsPhone/' + atob(id), {
         method: 'DELETE',
         body: JSON.stringify({ phone: phoneNumber }),
         headers: new Headers({
@@ -220,7 +218,7 @@ function removePhoneNumber(id){
 // премахване на нов телефонен номер
 function removeContactById(id){
 
-    fetch('http://localhost:3000/contacts/' + atob(id), {
+    fetch('http://130.204.187.170:3000/contacts/' + atob(id), {
         method: 'DELETE',
         headers: new Headers({
             'Content-Type': 'application/json'

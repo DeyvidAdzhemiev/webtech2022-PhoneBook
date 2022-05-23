@@ -137,4 +137,4 @@ app.delete('/contacts/:id', (req, res) => {
 });
 
 // слушаме на порт 3000 
-app.listen(port, () => { console.log(`Server listening on port ${port}`)});
+app.listen(port, '130.204.187.170', () => { console.log(`Server listening on port ${port}`)});
