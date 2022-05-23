@@ -14,3 +14,5 @@ Toва е проект по предмет уеб технологии към Ф
 2. mongodb - база от данни
 3. uuid - генериране на уникален индитификационен номер на контакт
 4. dotenv - .env файл за използване на проекта на различни платформи
+
+![alt text](https://github.com/Daneto123/Phonebook/blob/main/webtech%20diagram.png)
