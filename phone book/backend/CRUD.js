@@ -61,7 +61,7 @@ function newContact(req, res) {
 
 
 	if(!firstName || !lastName || !address || !email || !phone || !avatar) {
-		return res.status(400).json({error: "Invalid data" });
+		return 4;
 	}
 	
 	let Id = Uuid.v4();
@@ -84,7 +84,7 @@ function newContact(req, res) {
 	const validation = newContact.validateSync();
 
 	if(validation) {
-	 	return res.status(400).json(validation);
+	 	return 4;
 	}
 
 	newContact.save((err, doc) => {

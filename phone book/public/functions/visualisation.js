@@ -23,7 +23,6 @@ function showInfoFromSearch(phone) {
 function hideInfo() {
     document.getElementsByClassName("menu")[0].style.display = "block";
     document.getElementsByClassName("main")[0].style.display = "none";
-    console.log("da BOG");
     location.reload();
 }
 
@@ -94,6 +93,10 @@ function check(inpEmail, inpPhone) {
     });
 
 
+}
+
+function backMainPage() {
+    window.location.replace("http://130.204.187.170:3000/");
 }
 
 

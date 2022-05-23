@@ -75,9 +75,13 @@ app.get('/contactsSearch/:phone', (req, res) => {
 app.post('/contacts',upload.single('uploaded_file'), (req, res) => {
 
 	// console.log(req.file.filename, req.body);
-	newContact(req, res);
+	const result = newContact(req, res);
+	if(result == 4) {
+		return res.sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
+	} else {
+		res.redirect('/');
+	}
 
-	res.redirect('/');
 	
 });
 
