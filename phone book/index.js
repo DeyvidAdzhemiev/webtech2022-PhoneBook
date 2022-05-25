@@ -5,7 +5,7 @@ require('dotenv').config();
 const app = express(); // create application from express
 const port = process.env.PORT;
 
-const { getContacts } = require('./database/CRUD');
+const { getContacts, getFavorites } = require('./database/CRUD');
 
 // визуализиране на начална страница със списъка с контакти
 app.use(express.static(path.join(__dirname, 'public')));
@@ -14,6 +14,7 @@ app.use('/get', require('./backend/getContact'));
 app.use('/create', require('./backend/createContact'));
 app.use('/remove', require('./backend/removeContact'));
 app.use('/changeNumber', require('./backend/changeNumber'));
+app.use('/fav', require('./backend/addFavorites'));
 app.use(express.json());
 
 /** */
@@ -21,6 +22,17 @@ app.get('/contacts', (req, res) => {
     
 	// прочитаме данните от базата от данни
 	let listContacts = getContacts();
+	listContacts.then(function(result) {
+		return res.json(result);
+	})
+
+    
+});
+
+app.get('/favorites', (req, res) => {
+    
+	// прочитаме данните от базата от данни
+	let listContacts = getFavorites();
 	listContacts.then(function(result) {
 		return res.json(result);
 	})

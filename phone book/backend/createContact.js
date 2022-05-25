@@ -57,7 +57,8 @@ router.route('/contacts').post(upload.single('uploaded_file'), (req, res) => {
 		address: address,
 		email: email,
 		phones: [phoneNumber],
-		avatar: avatar
+		avatar: avatar,
+		isFavorites: false
 	});
 
 	// console.log(req.file.filename, req.body);

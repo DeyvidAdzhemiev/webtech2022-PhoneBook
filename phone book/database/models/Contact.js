@@ -32,7 +32,11 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: true
-    }
+    },
+	isFavorite: {
+		type: String,
+		default: false
+	}
 });
 
 module.exports = mongoose.model("contact", userSchema, "contacts");

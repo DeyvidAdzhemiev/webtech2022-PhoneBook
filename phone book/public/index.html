@@ -24,6 +24,10 @@
                 <a href="http://localhost:3000/newContact"></a>
                 <img style="width: 30px; height: 30px;" src="./images/add.png" > Добави
             </button>
+            <button id="favoriteBtn" onclick="favorite()">
+                <a href="http://localhost:3000/favorites"></a>
+                <img style="width: 30px; height: 30px;" src="./images/favorites.png" > Любими
+            </button>
         </div>
 
         <div class="search">
@@ -36,6 +40,11 @@
     <!-- визуализиране на всички контакти -->
     <div class="menu">
         <ul>    
+        </ul>
+    </div>
+
+    <div class="favorite">
+        <ul id="favoritelist">    
         </ul>
     </div>
 

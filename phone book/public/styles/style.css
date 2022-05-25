@@ -160,6 +160,51 @@ body {
     height: 35px; 
     border-radius: 50px;
 }
+
+.favorite {
+    background-color: rgb(173, 205, 214);
+    position: relative;
+    margin: 10px;
+    float: left;
+    width: 60%;
+    height: 300px;
+    overflow: auto;
+    display: none;
+}
+
+.favorite ul {
+    list-style: none;
+    display: block;
+    margin: 10px 30px;
+}
+
+.favorite ul li{
+    width: 300px;
+    text-align: left;
+    margin: 0px 25px;
+}
+
+.favorite ul li button {
+    font-size: medium;
+    font-style: italic;
+    
+}
+
+.favorite ul li button img {
+    width: 70%;
+}
+  
+.favorite ul a {
+    position: absolute;
+    left: 5%;
+    font-size: large;
+}
+  
+.favorite button {
+    background: none;
+    background-color: rgba(255,255,255,0);
+    border: none;
+}
   
   /* information about contact */
 .main {

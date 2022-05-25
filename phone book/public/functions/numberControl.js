@@ -54,3 +54,20 @@ function removeContact(id) {
     location.reload();
 
 }
+
+function addremoveFav(id) {
+
+    let isFavv = "true";
+
+    for (let i = 0; i < favorites.length; i++) {
+        if(favorites[i] == atob(id)){
+            isFavv = "false";
+            console.log(isFavv);
+        }
+        
+    }
+
+    addToFav(atob(id), isFavv);
+
+    location.reload();
+}

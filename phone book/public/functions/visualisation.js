@@ -39,6 +39,27 @@ function register() {
     }
 }
 
+
+function favorite() {
+
+    const info = document.getElementsByClassName("favorite")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("favorite")[0].style.display = "grid";
+        document.getElementsByClassName("menu")[0].style.display = "none";
+        document.getElementsByClassName("main")[0].style.display = "none";
+        document.getElementsByClassName("register")[0].style.display = "";
+    }
+    else
+    {
+        document.getElementsByClassName("favorite")[0].style.display = "";
+        document.getElementsByClassName("menu")[0].style.display = "block";
+        document.getElementsByClassName("main")[0].style.display = "none";
+        document.getElementsByClassName("register")[0].style.display = "";
+    }
+
+}
+
 // показва началната страница
 function homeBtn() {
     document.getElementsByClassName("register")[0].style.display = "none";
@@ -55,4 +76,14 @@ function backMainPage() {
 // показва информация за контакта
 function showInfo(id) {
     showhideClass("menu", "main", getInfoContact(id));
+}
+
+// показва информация за контакта
+function showInfoFavorite(id) {
+    document.getElementsByClassName("register")[0].style.display = "none";
+    document.getElementsByClassName("menu")[0].style.display = "none";
+    document.getElementsByClassName("main")[0].style.display = "block";
+    document.getElementsByClassName("favorite")[0].style.display = "none";
+    getInfoContact(id);
+
 }

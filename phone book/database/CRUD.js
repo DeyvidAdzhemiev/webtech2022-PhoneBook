@@ -21,6 +21,24 @@ function getContacts() {
 
 }
 
+function getFavorites() {
+
+	return new Promise(function(resolve, reject){
+		Contacts.find({isFavorites: true}, [], function(err, result) {
+			resolve(result);
+		});
+	});
+
+}
+
+function addtoFavorite(Id, isFavv) {
+
+	Contacts.updateOne({id: Id}, { isFavorite: isFavv },function(err, result) {
+		if ( err ) return 5;
+		console.log("is added to favorites " + isFavv);
+	});
+}
+
 function getContact(id) {
 
 	return new Promise(function(resolve, reject){
@@ -92,5 +110,5 @@ function removeContact(Id) {
 
 
 
-module.exports = { getContacts:getContacts, getContact:getContact, createContact:createContact, getContactByPhone:getContactByPhone, 
+module.exports = { getContacts:getContacts, getFavorites:getFavorites, getContact:getContact, addtoFavorite:addtoFavorite, createContact:createContact, getContactByPhone:getContactByPhone, 
 	               addNewPhoneNumber:addNewPhoneNumber, removePhoneNumber: removePhoneNumber, removeContact:removeContact }
