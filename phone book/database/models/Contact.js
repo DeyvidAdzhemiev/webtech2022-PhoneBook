@@ -8,11 +8,13 @@ const userSchema = new mongoose.Schema({
     },
 	firstName: {
 		type: String,
-		required: true
+		required: true,
+		match: [/^[a-z ,.'-]+$/i, 'Invalid firstName']
 	},
 	lastName: {
 		type: String,
-		required: true
+		required: true,
+		match: [/^[a-z ,.'-]+$/i, 'Invalid lastName']
 	},
     address: {
         type: String,
@@ -24,7 +26,7 @@ const userSchema = new mongoose.Schema({
 		match: [/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'Invalid email']
 	},
 	phones: {
-        type: Array,
+        type: [],
         required: true,
     },
     avatar: {
