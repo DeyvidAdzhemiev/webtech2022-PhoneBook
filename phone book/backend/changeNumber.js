@@ -7,7 +7,29 @@ const { checkPhoneNumber } = require('./middleware/phoneCheck');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-// добавяне на нов телефонен номер към конкретен потребител
+/**
+ * @swagger
+ * /changeNumber/contactsPhone/{id}:
+ *   patch:
+ *     summary: add phone number to contact by id.
+ *     parameters: [
+ *     {
+ *       in: path
+ *       description: id
+ *       type: string
+ *     },
+ *     {
+ *       in: formData
+ *       description: Additional data to pass to server
+ *       type: string
+ *     }
+ *     ]
+ *     responses:
+ *       200:
+ *         description: The cotanct description by id
+ *       404:
+ *         description: The contact was not found
+ */
 router.route('/contactsPhone/:id').patch(jsonParser, (req, res) => {
 
 	let Id = req.params.id;
@@ -32,7 +54,28 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res) => {
 	return res.send(200);
 });
 
-// премахване на телефонен номер към конкретен потребител
+
+
+/**
+ * @swagger
+ * /remove/contacts/{id}:
+ *   delete:
+ *     summary: remove contact by id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           required: true
+ *         description: The contact id
+ *     responses:
+ *       200:
+ *         description: The cotanct description by id
+ *         contens:
+ *           application/json:
+ *       404:
+ *         description: The contact was not found
+ */
 router.route('/contactsPhone/:id').delete(jsonParser, (req, res) => {
 
 	let Id = req.params.id;

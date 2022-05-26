@@ -6,7 +6,27 @@ var jsonParser = bodyParser.json();
 
 const { addtoFavorite } = require('../database/CRUD');
 
-// добавяне в списъка с любими
+
+/**
+ * @swagger
+ * /fav/favorite/{id}:
+ *   patch:
+ *     summary: add contact to favorites by id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           required: true
+ *         description: The contact id
+ *     responses:
+ *       200:
+ *         description: The cotanct description by id
+ *         contens:
+ *           application/json:
+ *       404:
+ *         description: The contact was not found
+ */
 router.route('/favorite/:id').patch(jsonParser, (req, res) => {
 
 	let Id = req.params.id;

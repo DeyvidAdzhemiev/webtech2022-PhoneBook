@@ -22,7 +22,41 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-// добавяне на нов потребител upload.single('myFile')
+/**
+* @swagger
+* paths:
+*  /create/contacts:
+*    post:
+*      summary: add new contact.
+*      parameters:
+*        - in: formData
+*          name: firstName
+*          type: string
+*          description: A contact's first name.
+*        - in: formData
+*          name: lastName
+*          type: number
+*          description: A contact's last name.
+*        - in: formData
+*          name: address
+*          type: number
+*          description: A contact's address.
+*        - in: formData
+*          name: email
+*          type: number
+*          description: A contact's email.
+*        - in: formData
+*          name: phone
+*          type: number
+*          description: A contact's phone number.
+*        - in: formData
+*          name: avatar
+*          type: number
+*          description: A contact's avatar.
+*      responses:
+*        200:
+*          description: OK
+*/
 router.route('/contacts').post(upload.single('uploaded_file'), (req, res) => {
 
     const firstName = req.body.firstname;

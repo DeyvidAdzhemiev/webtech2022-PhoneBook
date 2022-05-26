@@ -2,7 +2,26 @@ const express = require('express');
 const router = express.Router();
 const { removeContact } = require('../database/CRUD');
 
-// изтриване на потребител
+/**
+ * @swagger
+ * /remove/contacts/{id}:
+ *   delete:
+ *     summary: remove contact by id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           required: true
+ *         description: The contact id
+ *     responses:
+ *       200:
+ *         description: The cotanct description by id
+ *         contens:
+ *           application/json:
+ *       404:
+ *         description: The contact was not found
+ */
 router.route('/contacts/:id').delete((req, res) => {
 	
 	const Id = req.params.id;
