@@ -11,25 +11,32 @@ var jsonParser = bodyParser.json();
  * @swagger
  * /changeNumber/contactsPhone/{id}:
  *   patch:
- *     summary: add phone number to contact by id.
- *     parameters: [
- *     {
- *       in: path
- *       description: id
- *       type: string
- *     },
- *     {
- *       in: formData
- *       description: Additional data to pass to server
- *       type: string
- *     }
- *     ]
+ *     summary: add another phone number to contact by id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           required: true
+ *           description: The contact id
+ *       - in: body
+ *            name: phone
+ *            description: phone to be added.
+ *            schema:
+ *               type: '#/definitions/Phone'
  *     responses:
  *       200:
  *         description: The cotanct description by id
- *       404:
- *         description: The contact was not found
+ *  definitions:
+ *     Phone:
+ *       type: object
+ *     properties:
+ *       typePhone:
+ *          type: string
+ *       phone:
+ *          type: string
  */
+
 router.route('/contactsPhone/:id').patch(jsonParser, (req, res) => {
 
 	let Id = req.params.id;
