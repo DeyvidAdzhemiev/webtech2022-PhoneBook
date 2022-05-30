@@ -1,17 +1,12 @@
 // добавяне на нов телефонен номер
 function submitAtnoherPhone(id){
 
-    //const typenumber = document.getElementById("typeNumb").value;
-    //const phoneNumber = document.getElementById("phoneNumbAdd").value;
-    const typenumber = "дадада";
-    const phoneNumber = "456456456";
-
-    console.log(typenumber);
-    console.log(phoneNumber);
+    const typenumber = document.getElementById("typeNumb").value;
+    const phoneNumber = document.getElementById("phoneNumbAdd").value;
 
     fetch('http://localhost:3000/changeNumber/contactsPhone/' + id, {
         method: 'PATCH',
-        body: JSON.stringify({  typePhone: typenumber,
+        body: JSON.stringify({  type: typenumber,
                                 phone: phoneNumber }),
 
         headers: new Headers({
@@ -23,9 +18,8 @@ function submitAtnoherPhone(id){
 
 }
 
-// добавяне на нов телефонен номер
+// добавяне на потребител в списъка с любими
 function addToFav(id, isFavv){
-
 
     fetch('http://localhost:3000/fav/favorite/' + id, {
         method: 'PATCH',

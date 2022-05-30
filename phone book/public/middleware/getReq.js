@@ -1,6 +1,4 @@
 function addAllNumbers(phones) {
-    // зачисване на стари номера
-    var olddata = document.getElementById('PhoneNumbers').lastChild;
 
     // записване на нови номера
     const NumberOfList1 = document.createElement('tr');
@@ -14,7 +12,7 @@ function addAllNumbers(phones) {
     for (let i = 0; i < phones.length; i++) {
         let NumberOfList = document.createElement('tr');
         let count = createTd(i + 1);
-        let NumberType = createTd(phones[i].typePhone);
+        let NumberType = createTd(phones[i].type);
         let NumberPhone = createTd(phones[i].phone);
 
         NumberOfList.append(count, NumberType, NumberPhone);

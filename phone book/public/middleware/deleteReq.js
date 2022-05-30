@@ -2,7 +2,6 @@
 function removePhoneNumber(id){
 
     const phoneNumber = document.getElementById("phoneNumbRem").value;
-    //const phoneNumber = "8981234124";
 
     fetch('http://localhost:3000/changeNumber/contactsPhone/' + atob(id), {
         method: 'DELETE',

@@ -7,8 +7,6 @@ const { createContact } = require('../database/CRUD');
 var userModel = require('../database/models/Contact');
 const path = require('path');
 
-const { checkContact } = require('./middleware/addCheck');
-
 // настроики на multer
 var storage = multer.diskStorage({
 	destination: function(req, file, callback) {
@@ -57,49 +55,66 @@ var upload = multer({ storage: storage });
 *        200:
 *          description: OK
 */
-router.route('/contacts').post(upload.single('uploaded_file'), (req, res) => {
+router.route('/contacts').post(upload.single('uploaded_file'), (req, res, next) => {
+		const email = req.body.email;
+		const phone = req.body.phone;
 
-    const firstName = req.body.firstname;
-	const lastName = req.body.lastname;
-	const address = req.body.address;
-	const email = req.body.email;
-	const phone = req.body.phone;
-	let avatar;
+		const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-	if(!req.file) {
-		avatar = "unknown-person-icon.jpg";
-	} else {
-		avatar = req.file.filename;
-	}
+		if(!email.match(emailRegex)){
+			res.status(400);
+		}   
+
+		const phoneRegex = /^(\d{9})*$/;
+
+		if(!phone.match(phoneRegex)){
+			res.status(400);
+		}
+
+		next();
+	}, (req, res) => {
+
+		const firstName = req.body.firstname;
+		const lastName = req.body.lastname;
+		const address = req.body.address;
+		const email = req.body.email;
+		const phone = req.body.phone;
+		let avatar;
+
+		if(!req.file) {
+			avatar = "unknown-person-icon.jpg";
+		} else {
+			avatar = req.file.filename;
+		}
 
 
-	if(!firstName || !lastName || !address || !email || !phone || !avatar) {
-		return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
-	}
+		if(!firstName || !lastName || !address || !email || !phone || !avatar) {
+			return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
+		}
 
-    let Id = Uuid.v4();
+		let Id = Uuid.v4();
 
-	const phoneNumber = {
-		"type": "мобилен",
-		"phone": phone
-	}
+		const phoneNumber = {
+			"type": "мобилен",
+			"phone": phone
+		}
 
-	const newContact = new userModel({
-		id: Id,
-		firstName: firstName,
-		lastName: lastName,
-		address: address,
-		email: email,
-		phones: [phoneNumber],
-		avatar: avatar,
-		isFavorites: false
-	});
+		const newContact = new userModel({
+			id: Id,
+			firstName: firstName,
+			lastName: lastName,
+			address: address,
+			email: email,
+			phones: [phoneNumber],
+			avatar: avatar,
+			isFavorites: false
+		});
 
-	// console.log(req.file.filename, req.body);
-	const result = createContact(newContact);
-	if(result == 4) {
-		return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
-	}
+		// console.log(req.file.filename, req.body);
+		const result = createContact(newContact);
+		if(result == 4) {
+			return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
+		}
 
 	
 });

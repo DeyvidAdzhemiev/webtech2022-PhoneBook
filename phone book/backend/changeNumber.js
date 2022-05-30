@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const { addNewPhoneNumber, removePhoneNumber } = require('../database/CRUD');
-const { checkPhoneNumber } = require('./middleware/phoneCheck');
 
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -37,28 +36,38 @@ var jsonParser = bodyParser.json();
  *          type: string
  */
 
-router.route('/contactsPhone/:id').patch(jsonParser, (req, res) => {
+router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
+		const phone = req.body.phone;
 
-	let Id = req.params.id;
-	//console.log(req.body);
-	let typeNum = req.body.typePhone;
-	let	anotherPhoneNum = req.body.phone;
-	
-	if(!Id || !typeNum || !anotherPhoneNum){
-		return res.status(400);
-	}
+		const phoneRegex = /^(\d{9})*$/;
 
-	let newNum = {
-		"typePhone": typeNum,
-		"phone": anotherPhoneNum
-	}
+		if(!phone.match(phoneRegex)){
+			res.status(400);
+		}
 
-	const result = addNewPhoneNumber(Id, newNum);
-	if(result == 5){
-		return res.send(400);
-	}
+		next();
+	}, (req, res) => {
 
-	return res.send(200);
+		let Id = req.params.id;
+		console.log(req.body);
+		let typeNum = req.body.type;
+		let	anotherPhoneNum = req.body.phone;
+		
+		if(!Id || !typeNum || !anotherPhoneNum){
+			return res.status(400);
+		}
+
+		let newNum = {
+			"type": typeNum,
+			"phone": anotherPhoneNum
+		}
+
+		const result = addNewPhoneNumber(Id, newNum);
+		if(result == 5){
+			return res.send(400);
+		}
+
+		return res.send(200);
 });
 
 
@@ -83,22 +92,32 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res) => {
  *       404:
  *         description: The contact was not found
  */
-router.route('/contactsPhone/:id').delete(jsonParser, (req, res) => {
+router.route('/contactsPhone/:id').delete(jsonParser, (req, res, next) => {
+		const phone = req.body.phone;
 
-	let Id = req.params.id;
-	let anotherPhoneNum = req.body.phone;
-	
-	if(!Id || !anotherPhoneNum){
-		return res.status(400);
-	}
-	
-	const result = removePhoneNumber(Id, anotherPhoneNum);
+		const phoneRegex = /^(\d{9})*$/;
 
-	if(result == 5){
-		return res.send(400);
-	}
+		if(!phone.match(phoneRegex)){
+			res.status(400);
+		}
 
-	return res.status(200);
+		next();
+	}, (req, res) => {
+
+		let Id = req.params.id;
+		let anotherPhoneNum = req.body.phone;
+		
+		if(!Id || !anotherPhoneNum){
+			return res.status(400);
+		}
+		
+		const result = removePhoneNumber(Id, anotherPhoneNum);
+
+		if(result == 5){
+			return res.send(400);
+		}
+
+		return res.status(200);
 
 });
 

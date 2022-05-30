@@ -30,7 +30,6 @@ const { addtoFavorite } = require('../database/CRUD');
 router.route('/favorite/:id').patch(jsonParser, (req, res) => {
 
 	let Id = req.params.id;
-	//console.log(req.body);
 	let isFav = req.body.isFav;
 	
 	if(!Id || !isFav){

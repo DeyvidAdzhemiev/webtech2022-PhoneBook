@@ -22,21 +22,31 @@ const { removeContact } = require('../database/CRUD');
  *       404:
  *         description: The contact was not found
  */
-router.route('/contacts/:id').delete((req, res) => {
-	
-	const Id = req.params.id;
-	
-	if(!Id){
-		return res.status(400).json({error: "Invalid parameter"});
-	}
-	
-	let remContact = removeContact(Id);
-	remContact.then(function(result){
-		if(result != null){
-			res.status(200).json(result);
+router.route('/contacts/:id').delete((req, res, next) => {
+		const phone = req.body.phone;
+
+		const phoneRegex = /^(\d{9})*$/;
+
+		if(!phone.match(phoneRegex)){
+			res.status(400);
 		}
-		res.status(400);
-	});
+
+		next();
+	}, (req, res) => {
+		
+		const Id = req.params.id;
+		
+		if(!Id){
+			return res.status(400).json({error: "Invalid parameter"});
+		}
+		
+		let remContact = removeContact(Id);
+		remContact.then(function(result){
+			if(result != null){
+				res.status(200).json(result);
+			}
+			res.status(400);
+		});
 	
 	
 });
