@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { addNewPhoneNumber, removePhoneNumber } = require('../database/CRUD');
 
+const path = require('path');
+
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
@@ -20,7 +22,6 @@ var jsonParser = bodyParser.json();
  *           description: The contact id
  *       - in: body
  *            name: phone
- *            description: phone to be added.
  *            schema:
  *               type: '#/definitions/Phone'
  *     responses:
@@ -39,17 +40,29 @@ var jsonParser = bodyParser.json();
 router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 		const phone = req.body.phone;
 
-		const phoneRegex = /^(\d{9})*$/;
+		let Id = req.params.id;
 
-		if(!phone.match(phoneRegex)){
-			res.status(400);
+		console.log(req.body.phone);
+		console.log(req.body.type);
+
+		let newNum = {
+			"type": req.body.type,
+			"phone": req.body.phone
 		}
 
-		next();
+		addNewPhoneNumber(Id, newNum);
+
+		const phoneRegex = /^(\d{9})*$/;
+
+		if(phone.match(phoneRegex)){
+			next();
+		}
+
+		res.status(400);
 	}, (req, res) => {
 
 		let Id = req.params.id;
-		console.log(req.body);
+		// console.log("da" + req.body);
 		let typeNum = req.body.type;
 		let	anotherPhoneNum = req.body.phone;
 		
@@ -64,10 +77,10 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 
 		const result = addNewPhoneNumber(Id, newNum);
 		if(result == 5){
-			return res.send(400);
+			return res.status(400);
 		}
 
-		return res.send(200);
+		return res.status(200);
 });
 
 
@@ -97,24 +110,24 @@ router.route('/contactsPhone/:id').delete(jsonParser, (req, res, next) => {
 
 		const phoneRegex = /^(\d{9})*$/;
 
-		if(!phone.match(phoneRegex)){
-			res.status(400);
+		if(phone.match(phoneRegex)){
+			next();
 		}
 
-		next();
+		res.sendFile(path.join(__dirname, '..', '/public/404.html'));
 	}, (req, res) => {
 
 		let Id = req.params.id;
 		let anotherPhoneNum = req.body.phone;
 		
 		if(!Id || !anotherPhoneNum){
-			return res.status(400);
+			return res.sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 		
 		const result = removePhoneNumber(Id, anotherPhoneNum);
 
 		if(result == 5){
-			return res.send(400);
+			return res.sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 
 		return res.status(200);
