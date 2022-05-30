@@ -60,18 +60,13 @@ router.route('/contacts').post(upload.single('uploaded_file'), (req, res, next) 
 		const phone = req.body.phone;
 
 		const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-		if(!email.match(emailRegex)){
-			res.status(400);
-		}   
-
 		const phoneRegex = /^(\d{9})*$/;
 
-		if(!phone.match(phoneRegex)){
-			res.status(400);
-		}
+		if(email.match(emailRegex) && phone.match(phoneRegex)){
+			next();
+		}   
 
-		next();
+		// res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 	}, (req, res) => {
 
 		const firstName = req.body.firstname;
@@ -89,7 +84,7 @@ router.route('/contacts').post(upload.single('uploaded_file'), (req, res, next) 
 
 
 		if(!firstName || !lastName || !address || !email || !phone || !avatar) {
-			return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
+			return res.status(404).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 
 		let Id = Uuid.v4();
@@ -113,7 +108,7 @@ router.route('/contacts').post(upload.single('uploaded_file'), (req, res, next) 
 		// console.log(req.file.filename, req.body);
 		const result = createContact(newContact);
 		if(result == 4) {
-			return res.status(404).sendFile(path.join('C:/Users/dancho/Desktop/web/github/front end/my/webtech2022-PhoneBook/phone book/public/404.html'));
+			return res.sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 
 	

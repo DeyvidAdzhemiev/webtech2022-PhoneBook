@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { removeContact } = require('../database/CRUD');
 
+const path = require('path');
+
 /**
  * @swagger
  * /remove/contacts/{id}:
@@ -28,7 +30,7 @@ router.route('/contacts/:id').delete((req, res, next) => {
 		const phoneRegex = /^(\d{9})*$/;
 
 		if(!phone.match(phoneRegex)){
-			res.status(400);
+			res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 
 		next();
@@ -37,7 +39,7 @@ router.route('/contacts/:id').delete((req, res, next) => {
 		const Id = req.params.id;
 		
 		if(!Id){
-			return res.status(400).json({error: "Invalid parameter"});
+			return res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 		
 		let remContact = removeContact(Id);
@@ -45,7 +47,7 @@ router.route('/contacts/:id').delete((req, res, next) => {
 			if(result != null){
 				res.status(200).json(result);
 			}
-			res.status(400);
+			res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		});
 	
 	

@@ -79,9 +79,13 @@ function createContact(newContact) {
 
 function addNewPhoneNumber(Id, newNum) {
 
-	Contacts.updateOne({id: Id}, { $push: { phones: newNum } },function(err, result) {
+	if(newNum == undefined && newNum.phone == undefined && newNum.type == undefined) {
+		return 5;
+	}
+
+	Contacts.updateOne({id: Id}, { $push: { "phones": newNum } }, function(err, result) {
 		if ( err ) return 5;
-		console.log("added phone number" + result);
+		console.log("is added to newPhone ");
 	});
 
 }

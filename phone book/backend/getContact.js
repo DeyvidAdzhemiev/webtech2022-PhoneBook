@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { getContact, getContactByPhone } = require('../database/CRUD');
 
+const path = require('path');
+
 // /**
 //  * @swagger
 //  * components:
@@ -87,7 +89,7 @@ router.route('/contacts/:id').get((req, res) => {
 		if(result != null){
 			res.status(200).json(result);
 		}
-		res.status(400);
+		res.status(404);
 	})
 
 

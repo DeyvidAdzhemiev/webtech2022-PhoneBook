@@ -4,6 +4,8 @@ const router = express.Router();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
+const path = require('path');
+
 const { addtoFavorite } = require('../database/CRUD');
 
 
@@ -33,12 +35,12 @@ router.route('/favorite/:id').patch(jsonParser, (req, res) => {
 	let isFav = req.body.isFav;
 	
 	if(!Id || !isFav){
-		return res.status(400);
+		return res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 	}
 
 	const result = addtoFavorite(Id, isFav);
 	if(result == 5){
-		return res.send(400);
+		return res.send(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 	}
 
 	return res.send(200);
