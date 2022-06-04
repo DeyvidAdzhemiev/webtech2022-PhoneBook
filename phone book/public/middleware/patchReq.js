@@ -4,9 +4,9 @@ function submitAtnoherPhone(id){
     const typenumber = document.getElementById("typeNumb").value;
     const phoneNumber = document.getElementById("phoneNumbAdd").value;
 
-    console.log(typenumber + " " + phoneNumber);
+    console.log(typenumber + "are we zashto ne vliza tuk" + phoneNumber);
 
-    fetch('http://localhost:3000/changeNumber/contactsPhone/' + id, {
+    fetch('http://localhost:3000/changeNumber/contactsPhone/' + atob(id), {
         method: 'PATCH',
         body: JSON.stringify({  type: typenumber,
                                 phone: phoneNumber }),

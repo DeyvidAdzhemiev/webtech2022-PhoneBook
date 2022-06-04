@@ -78,6 +78,28 @@ function showInfo(id) {
     showhideClass("menu", "main", getInfoContact(id));
 }
 
+// показва менюто за добавяне на нов номер
+function showAdd() {
+    const info = document.getElementsByClassName("addNewNumber")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
+    } else {
+        document.getElementsByClassName("addNewNumber")[0].style.display = "";
+    }
+
+}
+
+function showRem() {
+    const info = document.getElementsByClassName("removeNumber")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("removeNumber")[0].style.display = "flex";
+    } else {
+        document.getElementsByClassName("removeNumber")[0].style.display = "";
+    }
+}
+
 // показва информация за контакта
 function showInfoFavorite(id) {
     document.getElementsByClassName("register")[0].style.display = "none";

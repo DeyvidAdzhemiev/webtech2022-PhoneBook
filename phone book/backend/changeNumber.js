@@ -50,8 +50,6 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 			"phone": req.body.phone
 		}
 
-		addNewPhoneNumber(Id, newNum);
-
 		const phoneRegex = /^(\d{9})*$/;
 
 		if(phone.match(phoneRegex)){

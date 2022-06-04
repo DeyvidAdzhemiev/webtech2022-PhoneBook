@@ -51,10 +51,16 @@ function getInfoContact(id) {
 
                 // създаване на нови бутони
                 const buttonAdd = document.getElementById('addP');
-                buttonAdd.setAttribute('onclick', 'addNumb(`'+ btoa(listContacts.id) +'`)');
+                buttonAdd.setAttribute('onclick', 'showAdd()');
+
+                const buttonAddFunc = document.getElementById('addAnotherNumber');
+                buttonAddFunc.setAttribute('onclick', 'addNumb(`'+ btoa(listContacts.id) +'`)');
                 
                 const buttonRem = document.getElementById('remP');
-                buttonRem.setAttribute('onclick', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
+                buttonRem.setAttribute('onclick', 'showRem()');
+
+                const buttonRemFunc = document.getElementById('removeAnotherNumber');
+                buttonRemFunc.setAttribute('onclick', 'removeNumb(`'+ btoa(listContacts.id) +'`)');
 
                 const deleteUser = document.getElementById('remPer');
                 deleteUser.setAttribute('onclick', 'removeContact(`'+ btoa(listContacts.id) +'`)');

@@ -17,14 +17,7 @@ function isAdded(btnAdd, btnRemove, id) {
 
 function addNumb(id) {
 
-    const info = document.getElementsByClassName("addNewNumber")[0].style.display;
-
-    if( info === "" ) {
-        document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
-        isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
-    } else {
-        document.getElementsByClassName("addNewNumber")[0].style.display = "";
-    }
+    isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
     
     console.log(id);
 }
@@ -37,14 +30,9 @@ function searchNumber() {
 }
 
 function removeNumb(id) {
-    const info = document.getElementsByClassName("removeNumber")[0].style.display;
 
-    if( info === "" ) {
-        document.getElementsByClassName("removeNumber")[0].style.display = "flex";
-        isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
-    } else {
-        document.getElementsByClassName("removeNumber")[0].style.display = "";
-    }
+    isAdded(document.getElementById('addAnotherNumber'), document.getElementById('removeAnotherNumber'), id);
+
 }
 
 function removeContact(id) {
