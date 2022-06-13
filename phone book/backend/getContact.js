@@ -87,9 +87,10 @@ router.route('/contacts/:id').get((req, res) => {
 	contact.then(function(result) {
 		console.log(result);
 		if(result != null){
-			res.status(200).json(result);
+			return res.status(200).json(result);
 		}
-		res.status(404);
+		
+		return res.status(400).sendFile(path.join(__dirname, '../', '/public/404.html'));;
 	})
 
 

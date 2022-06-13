@@ -8,42 +8,39 @@ const path = require('path');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-/**
- * @swagger
- * /changeNumber/contactsPhone/{id}:
- *   patch:
- *     summary: add another phone number to contact by id.
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *           required: true
- *           description: The contact id
- *       - in: body
- *            name: phone
- *            schema:
- *               type: '#/definitions/Phone'
- *     responses:
- *       200:
- *         description: The cotanct description by id
- *  definitions:
- *     Phone:
- *       type: object
- *     properties:
- *       typePhone:
- *          type: string
- *       phone:
- *          type: string
- */
+// /**
+//  * @swagger
+//  * /changeNumber/contactsPhone/{id}:
+//  *   patch:
+//  *     summary: add another phone number to contact by id.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         schema:
+//  *           type: string
+//  *           required: true
+//  *           description: The contact id
+//  *       - in: body
+//  *            name: phone
+//  *            schema:
+//  *               type: '#/definitions/Phone'
+//  *     responses:
+//  *       200:
+//  *         description: The cotanct description by id
+//  *  definitions:
+//  *     Phone:
+//  *       type: object
+//  *     properties:
+//  *       typePhone:
+//  *          type: string
+//  *       phone:
+//  *          type: string
+//  */
 
 router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 		const phone = req.body.phone;
 
 		let Id = req.params.id;
-
-		console.log(req.body.phone);
-		console.log(req.body.type);
 
 		let newNum = {
 			"type": req.body.type,
@@ -56,7 +53,11 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 			next();
 		}
 
-		res.status(400);
+		console.log(req.body.phone);
+		console.log(req.body.type);
+
+		return res.sendFile(path.join(__dirname, '../', '/public/404.html'));
+		
 	}, (req, res) => {
 
 		let Id = req.params.id;
@@ -75,7 +76,7 @@ router.route('/contactsPhone/:id').patch(jsonParser, (req, res, next) => {
 
 		const result = addNewPhoneNumber(Id, newNum);
 		if(result == 5){
-			return res.status(400);
+			return res.status(400).sendFile(path.join(__dirname, '../', '/public/404.html'));
 		}
 
 		return res.status(200);
@@ -112,20 +113,20 @@ router.route('/contactsPhone/:id').delete(jsonParser, (req, res, next) => {
 			next();
 		}
 
-		res.sendFile(path.join(__dirname, '..', '/public/404.html'));
+		res.status(400).sendFile(path.join(__dirname, '../', '/public/404.html'));
 	}, (req, res) => {
 
 		let Id = req.params.id;
 		let anotherPhoneNum = req.body.phone;
 		
 		if(!Id || !anotherPhoneNum){
-			return res.sendFile(path.join(__dirname, '..', '/public/404.html'));
+			return res.status(400).sendFile(path.join(__dirname, '../', '/public/404.html'));
 		}
 		
 		const result = removePhoneNumber(Id, anotherPhoneNum);
 
 		if(result == 5){
-			return res.sendFile(path.join(__dirname, '..', '/public/404.html'));
+			return res.status(400).sendFile(path.join(__dirname, '../', '/public/404.html'));
 		}
 
 		return res.status(200);

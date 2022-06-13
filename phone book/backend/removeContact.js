@@ -30,7 +30,7 @@ router.route('/contacts/:id').delete((req, res, next) => {
 		const phoneRegex = /^(\d{9})*$/;
 
 		if(!phone.match(phoneRegex)){
-			res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
+			return res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		}
 
 		next();
@@ -45,9 +45,10 @@ router.route('/contacts/:id').delete((req, res, next) => {
 		let remContact = removeContact(Id);
 		remContact.then(function(result){
 			if(result != null){
-				res.status(200).json(result);
+				return res.status(200).json(result);
 			}
-			res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
+
+			return res.status(400).sendFile(path.join(__dirname, '..', '/public/404.html'));
 		});
 	
 	
