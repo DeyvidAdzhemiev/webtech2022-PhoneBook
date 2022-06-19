@@ -10,11 +10,6 @@ function showhideClass(classNametoHide, classNametoShow, funct) {
 }
 
 // показва информация за контакта
-function showInfo(id) {
-    showhideClass("menu", "main", getInfoContact(id));
-}
-
-// показва информация за контакта
 function showInfoFromSearch(phone) {
     showhideClass("menu", "main", getInfoContactSearch(phone));
 }
@@ -44,6 +39,27 @@ function register() {
     }
 }
 
+
+function favorite() {
+
+    const info = document.getElementsByClassName("favorite")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("favorite")[0].style.display = "grid";
+        document.getElementsByClassName("menu")[0].style.display = "none";
+        document.getElementsByClassName("main")[0].style.display = "none";
+        document.getElementsByClassName("register")[0].style.display = "";
+    }
+    else
+    {
+        document.getElementsByClassName("favorite")[0].style.display = "";
+        document.getElementsByClassName("menu")[0].style.display = "block";
+        document.getElementsByClassName("main")[0].style.display = "none";
+        document.getElementsByClassName("register")[0].style.display = "";
+    }
+
+}
+
 // показва началната страница
 function homeBtn() {
     document.getElementsByClassName("register")[0].style.display = "none";
@@ -53,51 +69,43 @@ function homeBtn() {
 
 }
 
-// var numbers = ["5553555","243423434", "4675465478555"];
-
-
-  // проверява за валиден email и телефонен номер
-function check(inpEmail, inpPhone) {
-
-    inpEmail.addEventListener("input", function(e) {
-
-        val = this.value;
-        let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "email is not correct";
-            document.getElementById('email').style.border = "1px solid red";
-        } else {
-            document.getElementById('email').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
-
-    inpPhone.addEventListener("input", function(e) {
-
-        val = this.value;
-        let pattern = /^\d{9}$/;
-        let message = document.getElementById('message');
-        
-        if(!val.match(pattern)) {   
-            message.textContent = "phone is not correct";
-            document.getElementById('phone').style.border = "1px solid red";
-        } else {
-            document.getElementById('phone').style.border = "1px solid black";
-            message.textContent = "";
-        }
-
-    });
-
-
-}
-
 function backMainPage() {
-    window.location.replace("http://130.204.187.170:3000/");
+    window.location.replace("http://localhost:3000/");
 }
 
+// показва информация за контакта
+function showInfo(id) {
+    showhideClass("menu", "main", getInfoContact(id));
+}
 
-check(document.getElementById("email"), document.getElementById("phone"));
+// показва менюто за добавяне на нов номер
+function showAdd() {
+    const info = document.getElementsByClassName("addNewNumber")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("addNewNumber")[0].style.display = "flex";
+    } else {
+        document.getElementsByClassName("addNewNumber")[0].style.display = "";
+    }
+
+}
+
+function showRem() {
+    const info = document.getElementsByClassName("removeNumber")[0].style.display;
+
+    if( info === "" ) {
+        document.getElementsByClassName("removeNumber")[0].style.display = "flex";
+    } else {
+        document.getElementsByClassName("removeNumber")[0].style.display = "";
+    }
+}
+
+// показва информация за контакта
+function showInfoFavorite(id) {
+    document.getElementsByClassName("register")[0].style.display = "none";
+    document.getElementsByClassName("menu")[0].style.display = "none";
+    document.getElementsByClassName("main")[0].style.display = "block";
+    document.getElementsByClassName("favorite")[0].style.display = "none";
+    getInfoContact(id);
+
+}

@@ -1,7 +1,4 @@
-var userModel = require('./models/Contact');
-const {MongoClient} = require('mongodb');
 const mongoose = require('mongoose');
-const Uuid = require('uuid');
 require('dotenv').config();
 
 // const client = new MongoClient("mongodb+srv://webtech2022:webtech2022@cluster0.t7xdp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
@@ -22,6 +19,24 @@ function getContacts() {
 		});
 	});
 
+}
+
+function getFavorites() {
+
+	return new Promise(function(resolve, reject){
+		Contacts.find({isFavorites: true}, [], function(err, result) {
+			resolve(result);
+		});
+	});
+
+}
+
+function addtoFavorite(Id, isFavv) {
+
+	Contacts.updateOne({id: Id}, { isFavorite: isFavv },function(err, result) {
+		if ( err ) return 5;
+		console.log("is added to favorites " + isFavv);
+	});
 }
 
 function getContact(id) {
@@ -45,41 +60,7 @@ function getContactByPhone(phone) {
 
 }
 
-function newContact(req, res) {
-
-    const firstName = req.body.firstname;
-	const lastName = req.body.lastname;
-	const address = req.body.address;
-	const email = req.body.email;
-	const phone = req.body.phone;
-	let avatar;
-	if(!req.file) {
-		avatar = "unknown-person-icon.jpg";
-	} else {
-		avatar = req.file.filename;
-	}
-
-
-	if(!firstName || !lastName || !address || !email || !phone || !avatar) {
-		return 4;
-	}
-	
-	let Id = Uuid.v4();
-
-	const phoneNumber = {
-		"type": "мобилен",
-		"phone": phone
-	}
-
-	const newContact = new userModel({
-		id: Id,
-		firstName: firstName,
-		lastName: lastName,
-		address: address,
-		email: email,
-		phones: [phoneNumber],
-		avatar: avatar
-	});
+function createContact(newContact) {
 
 	const validation = newContact.validateSync();
 
@@ -93,19 +74,18 @@ function newContact(req, res) {
 		}
   });
 
-	// Contacts.updateOne({id: Id}, { $push: { phones: phoneNumber } }, function(err, result) {
-	// 	if (err) throw err;
-	// 	console.log("inserted");		
-	// });
-
 }
 
 
 function addNewPhoneNumber(Id, newNum) {
 
-	Contacts.updateOne({id: Id}, { $push: { phones: newNum } },function(err, result) {
-		if ( err ) throw err;
-		console.log("added phone number");
+	if(newNum == undefined && newNum.phone == undefined && newNum.type == undefined) {
+		return 5;
+	}
+
+	Contacts.updateOne({id: Id}, { $push: { "phones": newNum } }, function(err, result) {
+		if ( err ) return 5;
+		console.log("is added to newPhone ");
 	});
 
 }
@@ -113,7 +93,7 @@ function addNewPhoneNumber(Id, newNum) {
 function removePhoneNumber(Id, anotherPhoneNum) {
 
 	Contacts.updateOne({id: Id}, { $pull: { phones: { phone: anotherPhoneNum } } }, function(err, result) {
-		if ( err ) throw err;
+		if ( err ) return 5;
 		console.log("removed phone number");
 	});
 
@@ -134,5 +114,5 @@ function removeContact(Id) {
 
 
 
-module.exports = { getContacts:getContacts, getContact:getContact, newContact:newContact, getContactByPhone:getContactByPhone, 
+module.exports = { getContacts:getContacts, getFavorites:getFavorites, getContact:getContact, addtoFavorite:addtoFavorite, createContact:createContact, getContactByPhone:getContactByPhone, 
 	               addNewPhoneNumber:addNewPhoneNumber, removePhoneNumber: removePhoneNumber, removeContact:removeContact }

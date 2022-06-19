@@ -13,15 +13,22 @@ body{
 }
 
 #main{
-    display: table;
+    display: flex;
     width: 100%;
     height: 100vh;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.fof{
-	  display: table-cell;
-	  vertical-align: middle;
+.fof {
+    display: flex;
+    vertical-align: middle;
+    flex-wrap: wrap;
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .fof h1{
@@ -34,4 +41,10 @@ body{
 @keyframes type{
 	  from{box-shadow: inset -3px 0px 0px #888;}
 	  to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+#back {
+    width: 100px;
+    height: 45px;
+    border: none;
 }

@@ -15,4 +15,8 @@ Toва е проект по предмет уеб технологии към Ф
 3. uuid - генериране на уникален индитификационен номер на контакт
 4. dotenv - .env файл за използване на проекта на различни платформи
 
+<<<<<<< HEAD
 ![alt text](https://github.com/Daneto123/Phonebook/blob/main/webtech%20diagram.png)
+=======
+![alt text](https://github.com/Daneto123/Phonebook/blob/main/webtech%20diagram.png)
+>>>>>>> 0e132211803bf8b24364bb780764979dd06a4e7c
